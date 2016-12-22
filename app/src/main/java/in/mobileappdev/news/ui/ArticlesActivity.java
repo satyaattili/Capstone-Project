@@ -1,4 +1,4 @@
-package in.mobileappdev.news;
+package in.mobileappdev.news.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.mobileappdev.news.R;
 import in.mobileappdev.news.adapters.NewsArticlesListAdapter;
 import in.mobileappdev.news.models.Article;
 import in.mobileappdev.news.presenter.NewsArticlesPresenter;
@@ -29,6 +31,9 @@ public class ArticlesActivity extends AppCompatActivity implements
   private NewsArticlesPresenter presenter;
   private NewsArticlesListAdapter newsArticlesAdapter;
 
+  @BindView(R.id.toolbar)
+  Toolbar toolbar;
+
   @BindView(R.id.articlesRecyclerView)
   RecyclerView articlesRecyclerView;
 
@@ -41,6 +46,7 @@ public class ArticlesActivity extends AppCompatActivity implements
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_articles);
     ButterKnife.bind(this);
+    setSupportActionBar(toolbar);
 
     Intent getIntent = getIntent();
     if (null == getIntent) {
@@ -49,7 +55,15 @@ public class ArticlesActivity extends AppCompatActivity implements
       finish();
       return;
     }
+
     String sourceId = getIntent.getStringExtra(Constants.SOURCE_ID);
+    String sourceName = getIntent.getStringExtra(Constants.SOURCE_NAME);
+
+    if(getSupportActionBar() != null){
+      getSupportActionBar().setTitle(sourceName);
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
 
     if (sourceId == null) {
       Toast.makeText(this, "Something Wrong happened, Please select again", Toast.LENGTH_LONG)
@@ -101,6 +115,7 @@ public class ArticlesActivity extends AppCompatActivity implements
       swipeRefreshLayout.setRefreshing(false);
     }
   }
+
 
   @Override
   public void showArticles(List<Article> articles) {

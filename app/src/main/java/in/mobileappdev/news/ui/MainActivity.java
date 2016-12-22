@@ -1,9 +1,7 @@
-package in.mobileappdev.news;
+package in.mobileappdev.news.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,13 +11,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.mobileappdev.news.R;
 import in.mobileappdev.news.adapters.NewsSourcesGridAdapter;
 import in.mobileappdev.news.api.APIClient;
 import in.mobileappdev.news.models.Source;
@@ -122,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements
     String sourceId = newsSourcesList.get(position).getId();
     Intent articleList = new Intent(MainActivity.this, ArticlesActivity.class);
     articleList.putExtra(Constants.SOURCE_ID, sourceId);
+    articleList.putExtra(Constants.SOURCE_NAME, newsSourcesList.get(position).getName());
     startActivity(articleList);
   }
 }

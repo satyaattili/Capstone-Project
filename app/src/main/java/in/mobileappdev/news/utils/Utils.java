@@ -3,6 +3,12 @@ package in.mobileappdev.news.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import in.mobileappdev.news.app.NewsApp;
 
@@ -12,6 +18,8 @@ import in.mobileappdev.news.app.NewsApp;
 
 public class Utils {
 
+  private static String TAG = "Utils";
+
   public static boolean inNetworkConnected() {
     ConnectivityManager
         cm = (ConnectivityManager) NewsApp.getAppInstance().getApplicationContext()
@@ -19,6 +27,26 @@ public class Utils {
     NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
     return activeNetwork != null
         && activeNetwork.isConnectedOrConnecting();
+  }
+
+  public static String getTimeString(String time){
+    if(null == time){
+      return "";
+    }
+    Log.d(TAG, "givenTime : "+time);
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-dd'T'HH:mm:ss'Z'",
+        Locale.getDefault());
+    Date convertedDate;
+    try {
+      convertedDate = dateFormat.parse(time);
+    } catch (ParseException e) {
+      e.printStackTrace();
+      return time;
+    }
+    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm a", Locale.getDefault());
+    String convertedString = df.format(convertedDate);;
+    Log.d(TAG, "Converted Time : "+convertedString);
+    return convertedString;
   }
 
 }

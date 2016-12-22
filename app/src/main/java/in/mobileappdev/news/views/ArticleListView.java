@@ -1,6 +1,5 @@
 package in.mobileappdev.news.views;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import in.mobileappdev.news.models.Article;

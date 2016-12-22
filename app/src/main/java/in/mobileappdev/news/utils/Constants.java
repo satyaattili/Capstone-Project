@@ -10,4 +10,6 @@ public class Constants {
   //public static String
 
   public static String SOURCE_ID = "source_id";
+
+  public static String SOURCE_NAME = "source_name";
 }

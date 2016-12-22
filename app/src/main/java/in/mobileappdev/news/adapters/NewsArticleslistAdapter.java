@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.mobileappdev.news.R;
 import in.mobileappdev.news.models.Article;
+import in.mobileappdev.news.utils.Utils;
 
 public class NewsArticlesListAdapter extends RecyclerView.Adapter<NewsArticlesListAdapter.ViewHolder> {
   private ArrayList<Article> newsArticles;
@@ -52,7 +53,7 @@ public class NewsArticlesListAdapter extends RecyclerView.Adapter<NewsArticlesLi
         .diskCacheStrategy(DiskCacheStrategy.RESULT)
         .into(viewHolder.thumbnail);
 
-    viewHolder.publishedAt.setText(article.getPublishedAt());
+    viewHolder.publishedAt.setText(Utils.getTimeString(article.getPublishedAt()));
 
     viewHolder.parent.setOnClickListener(new View.OnClickListener() {
       @Override
