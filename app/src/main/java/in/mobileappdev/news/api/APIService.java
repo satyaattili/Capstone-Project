@@ -2,8 +2,10 @@ package in.mobileappdev.news.api;
 
 import java.util.List;
 
+import in.mobileappdev.news.models.NewsArticlesListResponse;
 import in.mobileappdev.news.models.SourcesResponce;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -14,5 +16,10 @@ public interface APIService {
 
   @GET("sources")
   Observable<SourcesResponce> getNewsSources();
+
+  //https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=fdf9c53649454ac8bedb495857725aae
+  @GET("articles")
+  Observable<NewsArticlesListResponse> getNewsArticles(@Query("source") String source, @Query
+      ("sortBy") String sortBy, @Query("apiKey") String apiKey);
 
 }

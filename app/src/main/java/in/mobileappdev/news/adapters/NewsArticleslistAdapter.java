@@ -20,38 +20,39 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import in.mobileappdev.news.R;
-import in.mobileappdev.news.models.Source;
+import in.mobileappdev.news.models.Article;
 
-public class NewsSourcesGridAdapter extends RecyclerView.Adapter<NewsSourcesGridAdapter.ViewHolder> {
-  private ArrayList<Source> newsSources;
+public class NewsArticlesListAdapter extends RecyclerView.Adapter<NewsArticlesListAdapter.ViewHolder> {
+  private ArrayList<Article> newsArticles;
   private Context context;
   private OnClickListener onClickListener;
 
-  public NewsSourcesGridAdapter(Context context, ArrayList<Source> android) {
-    this.newsSources = android;
+  public NewsArticlesListAdapter(Context context, ArrayList<Article> articles) {
+    this.newsArticles = articles;
     this.context = context;
   }
 
   @Override
-  public NewsSourcesGridAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+  public NewsArticlesListAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
     View view = LayoutInflater.from(viewGroup.getContext())
-        .inflate(R.layout.item_grid_news_sources, viewGroup, false);
+        .inflate(R.layout.item_news_article, viewGroup, false);
     return new ViewHolder(view);
   }
 
   @Override
-  public void onBindViewHolder(final NewsSourcesGridAdapter.ViewHolder viewHolder, int i) {
-
-    viewHolder.sourceName.setText(newsSources.get(i).getName());
+  public void onBindViewHolder(final NewsArticlesListAdapter.ViewHolder viewHolder, int i) {
+    Article article = newsArticles.get(i);
+    viewHolder.newsTitle.setText(article.getTitle());
     //glide
     Glide.with(context)
-        .load(newsSources.get(i).getUrlsToLogos().getSmall())
+        .load(article.getUrlToImage())
         .placeholder(R.drawable.source_thumbnail)
         .crossFade()
         .diskCacheStrategy(DiskCacheStrategy.RESULT)
-        .into(viewHolder.sourceImage);
+        .into(viewHolder.thumbnail);
+
+    viewHolder.publishedAt.setText(article.getPublishedAt());
 
     viewHolder.parent.setOnClickListener(new View.OnClickListener() {
       @Override
@@ -65,7 +66,7 @@ public class NewsSourcesGridAdapter extends RecyclerView.Adapter<NewsSourcesGrid
 
   @Override
   public int getItemCount() {
-    return newsSources.size();
+    return newsArticles.size();
   }
 
   public void setOnClickListener(OnClickListener onClickListener){
@@ -73,9 +74,10 @@ public class NewsSourcesGridAdapter extends RecyclerView.Adapter<NewsSourcesGrid
   }
 
   public class  ViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.source_title) TextView sourceName;
-    @BindView(R.id.source_img) ImageView sourceImage;
-    @BindView(R.id.source_item_parent) RelativeLayout parent;
+    @BindView(R.id.news_title) TextView newsTitle;
+    @BindView(R.id.thumbnail) ImageView thumbnail;
+    @BindView(R.id.published_at) TextView publishedAt;
+    @BindView(R.id.parent) RelativeLayout parent;
 
     public ViewHolder(View view) {
       super(view);

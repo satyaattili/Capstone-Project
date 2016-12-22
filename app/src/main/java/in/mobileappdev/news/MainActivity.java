@@ -1,5 +1,6 @@
 package in.mobileappdev.news;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,36 +12,47 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import in.mobileappdev.news.adapters.NewsSourcesGridAdapter;
 import in.mobileappdev.news.api.APIClient;
 import in.mobileappdev.news.models.Source;
 import in.mobileappdev.news.models.SourcesResponce;
+import in.mobileappdev.news.utils.Constants;
 import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+    NewsSourcesGridAdapter.OnClickListener{
 
   private static final String TAG = "MainActivity";
   private NewsSourcesGridAdapter newsSourcesGridAdapter;
   private ArrayList<Source> newsSourcesList = new ArrayList<>();
 
+  @BindView(R.id.toolbar) Toolbar toolbar;
+  @BindView(R.id.sources_recycler) RecyclerView newsSorcesRecyclerView;
+  @BindView(R.id.loadingProgress) ProgressBar loadingProgress;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    ButterKnife.bind(this);
     setSupportActionBar(toolbar);
-    RecyclerView newsSorcesRecyclerView = (RecyclerView) findViewById(R.id.sources_recycler);
+
     newsSourcesGridAdapter = new NewsSourcesGridAdapter(this, newsSourcesList);
     RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,2);
     newsSorcesRecyclerView.setLayoutManager(layoutManager);
     newsSorcesRecyclerView.setAdapter(newsSourcesGridAdapter);
+    newsSourcesGridAdapter.setOnClickListener(this);
     getNewsSources("en");
   }
 
@@ -76,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
   private Subscription subscription;
 
   private void getNewsSources(String username) {
+    loadingProgress.setVisibility(View.VISIBLE);
     subscription = APIClient.getInstance()
         .getNewsSources(username)
         .subscribeOn(Schedulers.io())
@@ -87,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
           @Override public void onError(Throwable e) {
             e.printStackTrace();
+            loadingProgress.setVisibility(View.GONE);
             Log.d(TAG, "In onError() "+e.getMessage());
           }
 
@@ -96,9 +110,18 @@ public class MainActivity extends AppCompatActivity {
             if(sources.getSources().size()>0){
               newsSourcesList.clear();
               newsSourcesList.addAll(sources.getSources());
+              loadingProgress.setVisibility(View.GONE);
               newsSourcesGridAdapter.notifyDataSetChanged();
             }
           }
         });
+  }
+
+  @Override
+  public void onClick(int position) {
+    String sourceId = newsSourcesList.get(position).getId();
+    Intent articleList = new Intent(MainActivity.this, ArticlesActivity.class);
+    articleList.putExtra(Constants.SOURCE_ID, sourceId);
+    startActivity(articleList);
   }
 }

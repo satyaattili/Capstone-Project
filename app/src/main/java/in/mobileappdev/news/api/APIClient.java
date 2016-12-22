@@ -1,20 +1,14 @@
 package in.mobileappdev.news.api;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
-
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import in.mobileappdev.news.app.NewsApp;
+import in.mobileappdev.news.models.NewsArticlesListResponse;
 import in.mobileappdev.news.models.SourcesResponce;
-import in.mobileappdev.news.utils.CachingControlInterceptor;
 import in.mobileappdev.news.utils.Utils;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -27,8 +21,6 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
 
-import static android.content.ContentValues.TAG;
-
 /**
  * Created by satyanarayana.avv on 09-12-2016.
  */
@@ -40,7 +32,7 @@ public class APIClient {
 
 
   private static APIClient instance;
-  private APIService gitHubService;
+  private APIService apiService;
 
   private APIClient() {
 
@@ -49,7 +41,23 @@ public class APIClient {
         .addConverterFactory(GsonConverterFactory.create())
       //  .client(provideOkHttpClient())
         .build();
-    gitHubService = retrofit.create(APIService.class);
+    apiService = retrofit.create(APIService.class);
+  }
+
+  public static APIClient getInstance() {
+    if (instance == null) {
+      instance = new APIClient();
+    }
+    return instance;
+  }
+
+  public Observable<SourcesResponce> getNewsSources(@NonNull String language) {
+    return apiService.getNewsSources();
+  }
+
+  public Observable<NewsArticlesListResponse> getArticles(@NonNull String sourceId, String
+      sortBy, String apiKey) {
+    return apiService.getNewsArticles(sourceId, sortBy, apiKey);
   }
 
 
@@ -61,18 +69,6 @@ public class APIClient {
         .cache( provideCache() )
         .build();
   }
-
-  public static APIClient getInstance() {
-    if (instance == null) {
-      instance = new APIClient();
-    }
-    return instance;
-  }
-
-  public Observable<SourcesResponce> getNewsSources(@NonNull String language) {
-    return gitHubService.getNewsSources();
-  }
-
 
   private static Cache provideCache ()
   {
