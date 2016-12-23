@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +19,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.mobileappdev.news.R;
 import in.mobileappdev.news.adapters.NewsArticlesListAdapter;
+import in.mobileappdev.news.bus.ArticleListEvent;
+import in.mobileappdev.news.bus.MainBus;
 import in.mobileappdev.news.models.Article;
 import in.mobileappdev.news.presenter.NewsArticlesPresenter;
 import in.mobileappdev.news.utils.Constants;
@@ -59,7 +63,7 @@ public class ArticlesActivity extends AppCompatActivity implements
     String sourceId = getIntent.getStringExtra(Constants.SOURCE_ID);
     String sourceName = getIntent.getStringExtra(Constants.SOURCE_NAME);
 
-    if(getSupportActionBar() != null){
+    if (getSupportActionBar() != null) {
       getSupportActionBar().setTitle(sourceName);
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -89,6 +93,7 @@ public class ArticlesActivity extends AppCompatActivity implements
     swipeRefreshLayout.setOnRefreshListener(this);
   }
 
+
   @Override
   protected void onDestroy() {
     if (presenter != null) {
@@ -100,7 +105,13 @@ public class ArticlesActivity extends AppCompatActivity implements
   @Override
   public void onClick(int position) {
 
+    Intent detailActivity = new Intent(ArticlesActivity.this, NewsDetailActivity.class);
+    startActivity(detailActivity);
+    EventBus.getDefault().postSticky(new ArticleListEvent(listOfArticles.get(position)));
+   // MainBus.getInstance().post(new ArticleListEvent(listOfArticles.get(position)));
+
   }
+
 
   @Override
   public void showLoading() {

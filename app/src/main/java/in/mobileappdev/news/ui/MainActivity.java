@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements
 
           @Override public void onNext(SourcesResponce sources) {
             Log.d(TAG, "In onNext()"  +sources.getSources().size());
-            //adapter.setGitHubRepos(gitHubRepos);
             if(sources.getSources().size()>0){
               newsSourcesList.clear();
               newsSourcesList.addAll(sources.getSources());

@@ -28,6 +28,12 @@
             android:label="@string/title_activity_news_detail"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+
+        <meta-data
+            android:name="in.mobileappdev.news.utils.GlideConfiguration"
+            android:value="GlideModule"/>
+
     </application>
 
 </manifest>
