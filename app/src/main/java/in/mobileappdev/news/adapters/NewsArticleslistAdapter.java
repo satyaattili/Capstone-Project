@@ -59,7 +59,7 @@ public class NewsArticlesListAdapter extends RecyclerView.Adapter<NewsArticlesLi
       @Override
       public void onClick(View view) {
         if(onClickListener != null){
-          onClickListener.onClick(viewHolder.getAdapterPosition());
+          onClickListener.onClick(view,viewHolder.getAdapterPosition());
         }
       }
     });
@@ -88,7 +88,7 @@ public class NewsArticlesListAdapter extends RecyclerView.Adapter<NewsArticlesLi
   }
 
   public interface OnClickListener {
-    void onClick(int position);
+    void onClick(View v,int position);
   }
 }
 

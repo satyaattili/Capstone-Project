@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements
   private void getNewsSources(String username) {
     loadingProgress.setVisibility(View.VISIBLE);
     subscription = APIClient.getInstance()
-        .getNewsSources(username)
+        .getNewsSources("en", "")
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Observer<SourcesResponce>() {

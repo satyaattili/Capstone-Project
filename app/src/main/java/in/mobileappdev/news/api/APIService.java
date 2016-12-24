@@ -15,7 +15,8 @@ import rx.Observable;
 public interface APIService {
 
   @GET("sources")
-  Observable<SourcesResponce> getNewsSources();
+  Observable<SourcesResponce> getNewsSources(@Query("language") String language, @Query("country")
+      String country);
 
   //https://newsapi.org/v1/articles?source=the-next-web&sortBy=latest&apiKey=fdf9c53649454ac8bedb495857725aae
   @GET("articles")

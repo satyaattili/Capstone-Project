@@ -51,8 +51,9 @@ public class APIClient {
     return instance;
   }
 
-  public Observable<SourcesResponce> getNewsSources(@NonNull String language) {
-    return apiService.getNewsSources();
+  public Observable<SourcesResponce> getNewsSources(@NonNull String language, @NonNull String
+      country) {
+    return apiService.getNewsSources(language,country);
   }
 
   public Observable<NewsArticlesListResponse> getArticles(@NonNull String sourceId, String

@@ -64,18 +64,20 @@
                     android:padding="10dp">
 
                     <TextView
-                        android:id="@+id/nameTextView"
+                        android:id="@+id/articleTitle"
                         style="@style/TextAppearance.AppCompat.Title.Inverse"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
+                        android:textColor="@color/md_white_1000"
                         android:maxLines="2"
                         android:textIsSelectable="true"/>
 
                     <TextView
-                        android:id="@+id/distanceTextView"
+                        android:id="@+id/articleAuthor"
                         style="@style/TextAppearance.AppCompat.Subhead.Inverse"
                         android:layout_width="wrap_content"
+                        android:textColor="@color/md_grey_300"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
@@ -97,14 +99,34 @@
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbarStyle="outsideOverlay"
         android:clipToPadding="false"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="900dp"
-            android:background="#969595"/>
-
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:clipToPadding="false">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/articleDesc"
+                android:padding="10dp"
+                android:textSize="16sp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Read More"
+                android:background="@drawable/btn_rounded_corner_bg"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/readMoreButton"/>
+            <RelativeLayout
+                android:id="@+id/ad_banner"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"/>
+          </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-
 </android.support.design.widget.CoordinatorLayout>

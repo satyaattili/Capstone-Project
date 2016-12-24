@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -103,10 +104,9 @@ public class ArticlesActivity extends AppCompatActivity implements
   }
 
   @Override
-  public void onClick(int position) {
-
-    Intent detailActivity = new Intent(ArticlesActivity.this, NewsDetailActivity.class);
-    startActivity(detailActivity);
+  public void onClick(View view,int position) {
+    View newsimageView = view.findViewById(R.id.thumbnail);
+    NewsDetailActivity.launch(this, newsimageView);
     EventBus.getDefault().postSticky(new ArticleListEvent(listOfArticles.get(position)));
    // MainBus.getInstance().post(new ArticleListEvent(listOfArticles.get(position)));
 
