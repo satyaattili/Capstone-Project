@@ -89,11 +89,24 @@ public class NewsDetailActivityFragment extends Fragment {
     return view;
   }
 
-  @OnClick(R.id.readMoreButton)
+  @OnClick({R.id.readMoreButton, R.id.sharebtn})
   public void readMoreClick(View v) {
-    Intent i = new Intent(getActivity(), NewsDetailWebActivity.class);
-    i.putExtra(Constants.URL, newsUrl);
-    startActivity(i);
+    int id = v.getId();
+    if(id == R.id.readMoreButton){
+      Intent i = new Intent(getActivity(), NewsDetailWebActivity.class);
+      i.putExtra(Constants.URL, newsUrl);
+      startActivity(i);
+    }else {
+      Intent sendIntent = new Intent();
+      String msg = Constants.DYNAMIC_LINK_DOMAIN+"?link="+Constants
+          .BASE_SHARE_URL+newsUrl+"&apn="+Constants.PACKAGE_NAME;
+      Log.d(TAG, "Shared URL : "+msg);
+      sendIntent.setAction(Intent.ACTION_SEND);
+      sendIntent.putExtra(Intent.EXTRA_TEXT, msg);
+      sendIntent.setType("text/plain");
+      startActivity(sendIntent);
+    }
+
   }
 
   @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
