@@ -9,12 +9,15 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.mobileappdev.news.R;
+import in.mobileappdev.news.utils.Constants;
 
 public class NewsDetailWebActivity extends AppCompatActivity
     implements SwipeRefreshLayout.OnRefreshListener {
@@ -57,13 +60,13 @@ public class NewsDetailWebActivity extends AppCompatActivity
   protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
     String action = intent.getAction();
-    String url = "";
+    String url;
     Uri data = intent.getData();
     if (Intent.ACTION_VIEW.equals(action) && data != null) {
-      url = data.getQueryParameter("deeplink");
+      url = data.getQueryParameter(Constants.DEEPLINK);
       isDeeplink = true;
     } else {
-      url = intent.getStringExtra("url");
+      url = intent.getStringExtra(Constants.URL);
       isDeeplink = false;
     }
     setToolbarTitle(url);
@@ -87,6 +90,11 @@ public class NewsDetailWebActivity extends AppCompatActivity
     @Override
     public void onPageFinished(WebView view, String url) {
       swipeRefreshLayout.setRefreshing(false);
+    }
+
+    @Override
+    public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+      super.onReceivedError(view, request, error);
     }
   }
 

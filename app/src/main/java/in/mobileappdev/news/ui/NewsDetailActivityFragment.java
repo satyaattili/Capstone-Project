@@ -67,11 +67,7 @@ public class NewsDetailActivityFragment extends Fragment {
   }
 
   public static NewsDetailActivityFragment createInstance() {
-    NewsDetailActivityFragment detailFragment = new NewsDetailActivityFragment();
-    //  Bundle bundle = new Bundle();
-    // bundle.putString(EXTRA_ATTRACTION, attractionName);
-    //  detailFragment.setArguments(bundle);
-    return detailFragment;
+    return new NewsDetailActivityFragment();
   }
 
   @Override
@@ -96,7 +92,7 @@ public class NewsDetailActivityFragment extends Fragment {
   @OnClick(R.id.readMoreButton)
   public void readMoreClick(View v) {
     Intent i = new Intent(getActivity(), NewsDetailWebActivity.class);
-    i.putExtra("url", newsUrl);
+    i.putExtra(Constants.URL, newsUrl);
     startActivity(i);
   }
 
