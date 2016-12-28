@@ -12,4 +12,6 @@ public class Constants {
   public static String SOURCE_ID = "source_id";
 
   public static String SOURCE_NAME = "source_name";
+
+  public static String BASE_SHARE_URL = "http://mobileappdev.in/news?deeplink=";
 }

@@ -2,6 +2,7 @@ package in.mobileappdev.news.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ProgressBar;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -28,7 +37,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements
-    NewsSourcesGridAdapter.OnClickListener{
+    NewsSourcesGridAdapter.OnClickListener,GoogleApiClient.OnConnectionFailedListener{
 
   private static final String TAG = "MainActivity";
   private NewsSourcesGridAdapter newsSourcesGridAdapter;
@@ -38,12 +47,27 @@ public class MainActivity extends AppCompatActivity implements
   @BindView(R.id.sources_recycler) RecyclerView newsSorcesRecyclerView;
   @BindView(R.id.loadingProgress) ProgressBar loadingProgress;
 
+  private FirebaseAuth mAuth;;
+  private GoogleApiClient mGoogleApiClient;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
     setSupportActionBar(toolbar);
+
+    mAuth = FirebaseAuth.getInstance();
+    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+        .requestIdToken(getString(R.string.default_web_client_id))
+        .requestEmail()
+        .build();
+    // [END config_signin]
+
+    mGoogleApiClient = new GoogleApiClient.Builder(this)
+        .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+        .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+        .build();
 
     newsSourcesGridAdapter = new NewsSourcesGridAdapter(this, newsSourcesList);
     RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,2);
@@ -69,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements
 
     //noinspection SimplifiableIfStatement
     if (id == R.id.action_settings) {
+      signOut();
       return true;
     }
 
@@ -120,5 +145,24 @@ public class MainActivity extends AppCompatActivity implements
     articleList.putExtra(Constants.SOURCE_ID, sourceId);
     articleList.putExtra(Constants.SOURCE_NAME, newsSourcesList.get(position).getName());
     startActivity(articleList);
+  }
+
+  private void signOut() {
+    // Firebase sign out
+    mAuth.signOut();
+
+    // Google sign out
+    Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+        new ResultCallback<Status>() {
+          @Override
+          public void onResult(@NonNull Status status) {
+          //  updateUI(null);
+          }
+        });
+  }
+
+  @Override
+  public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
   }
 }
