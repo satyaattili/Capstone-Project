@@ -21,4 +21,8 @@ public class Constants {
 
   public static String DYNAMIC_LINK_DOMAIN = "https://fca93.app.goo.gl/";
   public static String PACKAGE_NAME = "in.mobileappdev.news";
+
+  public static String EMPTY_STRING = "";
+
+  public static String TOP_ARTICLES = "top";
 }

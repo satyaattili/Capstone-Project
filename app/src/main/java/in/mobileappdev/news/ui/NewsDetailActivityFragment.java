@@ -1,10 +1,8 @@
 package in.mobileappdev.news.ui;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,13 +16,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.appindexing.FirebaseAppIndex;
-import com.google.firebase.appindexing.FirebaseUserActions;
-import com.google.firebase.appindexing.Indexable;
-import com.google.firebase.appindexing.builders.Actions;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -92,15 +83,15 @@ public class NewsDetailActivityFragment extends Fragment {
   @OnClick({R.id.readMoreButton, R.id.sharebtn})
   public void readMoreClick(View v) {
     int id = v.getId();
-    if(id == R.id.readMoreButton){
+    if (id == R.id.readMoreButton) {
       Intent i = new Intent(getActivity(), NewsDetailWebActivity.class);
       i.putExtra(Constants.URL, newsUrl);
       startActivity(i);
-    }else {
+    } else {
       Intent sendIntent = new Intent();
-      String msg = Constants.DYNAMIC_LINK_DOMAIN+"?link="+Constants
-          .BASE_SHARE_URL+newsUrl+"&apn="+Constants.PACKAGE_NAME;
-      Log.d(TAG, "Shared URL : "+msg);
+      String msg = Constants.DYNAMIC_LINK_DOMAIN + "?link=" + Constants
+          .BASE_SHARE_URL + newsUrl + "&apn=" + Constants.PACKAGE_NAME;
+      Log.d(TAG, "Shared URL : " + msg);
       sendIntent.setAction(Intent.ACTION_SEND);
       sendIntent.putExtra(Intent.EXTRA_TEXT, msg);
       sendIntent.setType("text/plain");

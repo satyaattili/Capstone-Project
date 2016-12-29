@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import in.mobileappdev.news.R;
+import in.mobileappdev.news.app.NewsApp;
 
 
 public class LoginActivity extends AppCompatActivity implements
@@ -132,7 +133,8 @@ public class LoginActivity extends AppCompatActivity implements
   private void updateUI(FirebaseUser user) {
     hideProgressDialog();
     if (user != null) {
-     startActivity(new Intent(LoginActivity.this, MainActivity.class));
+      NewsApp.getAppInstance().setLoginStatus(true);
+      startActivity(new Intent(LoginActivity.this, MainActivity.class));
       finish();
     } else {
       findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);

@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,6 +27,8 @@ import in.mobileappdev.news.models.Article;
 import in.mobileappdev.news.presenter.NewsArticlesPresenter;
 import in.mobileappdev.news.utils.Constants;
 import in.mobileappdev.news.views.ArticleListView;
+import in.mobileappdev.news.views.ErrorBuilder;
+import in.mobileappdev.news.views.ErrorClickListener;
 
 public class ArticlesActivity extends AppCompatActivity implements
     NewsArticlesListAdapter.OnClickListener, ArticleListView, SwipeRefreshLayout.OnRefreshListener {
@@ -35,6 +38,7 @@ public class ArticlesActivity extends AppCompatActivity implements
   private ArrayList<Article> listOfArticles = new ArrayList<>();
   private NewsArticlesPresenter presenter;
   private NewsArticlesListAdapter newsArticlesAdapter;
+  private ErrorBuilder errorBuilder;
 
   @BindView(R.id.toolbar)
   Toolbar toolbar;
@@ -44,6 +48,9 @@ public class ArticlesActivity extends AppCompatActivity implements
 
   @BindView(R.id.swipeRefreshLayout)
   SwipeRefreshLayout swipeRefreshLayout;
+
+  @BindView(R.id.error_layout)
+  LinearLayout errorLayout;
 
 
   @Override
@@ -69,13 +76,22 @@ public class ArticlesActivity extends AppCompatActivity implements
       getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-
     if (sourceId == null) {
       Toast.makeText(this, "Something Wrong happened, Please select again", Toast.LENGTH_LONG)
           .show();
       finish();
       return;
     }
+
+    errorBuilder = new ErrorBuilder(this, errorLayout, new ErrorClickListener() {
+      @Override
+      public void onRetryClicked(View view) {
+        if (presenter != null) {
+          presenter.destroy();
+          presenter.start();
+        }
+      }
+    });
 
     presenter = new NewsArticlesPresenter(this, sourceId);
     presenter.start();
@@ -133,6 +149,19 @@ public class ArticlesActivity extends AppCompatActivity implements
     listOfArticles.clear();
     listOfArticles.addAll(articles);
     newsArticlesAdapter.notifyDataSetChanged();
+  }
+
+  @Override
+  public void showError(String message, int type) {
+    hideLoading();
+    errorLayout.setVisibility(View.VISIBLE);
+    errorBuilder.showError(message,0,true);
+  }
+
+  @Override
+  public void hideError() {
+    errorLayout.setVisibility(View.GONE);
+
   }
 
   @Override

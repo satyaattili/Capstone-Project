@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import in.mobileappdev.news.app.NewsApp;
 import in.mobileappdev.news.models.NewsArticlesListResponse;
 import in.mobileappdev.news.models.SourcesResponce;
+import in.mobileappdev.news.utils.RxErrorHandlingCallAdapterFactory;
 import in.mobileappdev.news.utils.Utils;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
@@ -39,6 +40,7 @@ public class APIClient {
     final Retrofit retrofit = new Retrofit.Builder().baseUrl(GITHUB_BASE_URL)
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
       //  .client(provideOkHttpClient())
         .build();
     apiService = retrofit.create(APIService.class);

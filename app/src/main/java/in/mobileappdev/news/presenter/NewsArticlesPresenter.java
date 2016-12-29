@@ -3,10 +3,13 @@ package in.mobileappdev.news.presenter;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.io.IOException;
+
 import in.mobileappdev.news.api.APIClient;
 import in.mobileappdev.news.models.NewsArticlesListResponse;
 import in.mobileappdev.news.utils.Constants;
 import in.mobileappdev.news.views.ArticleListView;
+import retrofit2.adapter.rxjava.HttpException;
 import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -43,7 +46,7 @@ public class NewsArticlesPresenter {
   private void getArticles() {
     articleListView.showLoading();
     subscription = APIClient.getInstance()
-        .getArticles(sourceId, "top", Constants.NEWS_API_KEY)
+        .getArticles(sourceId, Constants.TOP_ARTICLES, Constants.NEWS_API_KEY)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Observer<NewsArticlesListResponse>() {
@@ -54,8 +57,14 @@ public class NewsArticlesPresenter {
 
           @Override
           public void onError(Throwable e) {
-            e.printStackTrace();
             Log.d(TAG, "In onError() " + e.getMessage());
+            if (e instanceof HttpException) {
+              articleListView.showError("HTTP Error", 0);
+            } else if (e instanceof IOException) {
+              articleListView.showError("Network Error", 1);
+            } else {
+              articleListView.showError("Unknown Error", 2);
+            }
           }
 
           @Override
@@ -63,6 +72,7 @@ public class NewsArticlesPresenter {
             Log.d(TAG, "In onNext()" + sources.getArticles().size());
             if (sources.getArticles() != null && sources.getArticles().size() > 0) {
               articleListView.hideLoading();
+              articleListView.hideError();
               articleListView.showArticles(sources.getArticles());
             }
           }
