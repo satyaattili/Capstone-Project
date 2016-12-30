@@ -1,11 +1,11 @@
 package in.mobileappdev.news.ui;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -17,8 +17,10 @@ import in.mobileappdev.news.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
+  private String TAG = SplashScreenActivity.class.getSimpleName();
   private static final String LOGIN_CONFIG = "login";
-  FirebaseRemoteConfig firebaseRemoteConfig;
+  private FirebaseRemoteConfig firebaseRemoteConfig;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -35,7 +37,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     fetchLoginConfig();
   }
 
-  private void fetchLoginConfig(){
+  private void fetchLoginConfig() {
 
     long cacheExpiration = 3600; // 1 hour in seconds.
     if (firebaseRemoteConfig.getInfo().getConfigSettings().isDeveloperModeEnabled()) {
@@ -46,12 +48,10 @@ public class SplashScreenActivity extends AppCompatActivity {
           @Override
           public void onComplete(@NonNull Task<Void> task) {
             if (task.isSuccessful()) {
-              Toast.makeText(SplashScreenActivity.this, "Fetch Succeeded",
-                  Toast.LENGTH_SHORT).show();
+              Log.d(TAG, "Remote Config Fetch Succeeded");
               firebaseRemoteConfig.activateFetched();
             } else {
-              Toast.makeText(SplashScreenActivity.this, "Fetch Failed",
-                  Toast.LENGTH_SHORT).show();
+              Log.d(TAG, "Remote Config Fetch Failed");
             }
             goToNextScreen();
           }
@@ -65,15 +65,12 @@ public class SplashScreenActivity extends AppCompatActivity {
       @Override
       public void run() {
         Intent i;
-        if(firebaseRemoteConfig.getBoolean(LOGIN_CONFIG)){
+        if (firebaseRemoteConfig.getBoolean(LOGIN_CONFIG)) {
           i = new Intent(SplashScreenActivity.this, LoginActivity.class);
-          Toast.makeText(SplashScreenActivity.this, "Login Needed",
-              Toast.LENGTH_SHORT).show();
-
-        }else{
+          Log.d(TAG, "Remote Config : LOGIN NEEDED");
+        } else {
           i = new Intent(SplashScreenActivity.this, MainActivity.class);
-          Toast.makeText(SplashScreenActivity.this, "Login Not Neeeded",
-              Toast.LENGTH_SHORT).show();
+          Log.d(TAG, "Remote Config : LOGIN NOT NEEDED");
         }
 
         startActivity(i);
