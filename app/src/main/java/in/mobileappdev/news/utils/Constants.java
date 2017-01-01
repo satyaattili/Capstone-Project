@@ -12,4 +12,17 @@ public class Constants {
   public static String SOURCE_ID = "source_id";
 
   public static String SOURCE_NAME = "source_name";
+
+  public static String BASE_SHARE_URL = "http://mobileappdev.in/news?deeplink=";
+
+  public static String DEEPLINK = "deeplink";
+
+  public static String URL = "url";
+
+  public static String DYNAMIC_LINK_DOMAIN = "https://fca93.app.goo.gl/";
+  public static String PACKAGE_NAME = "in.mobileappdev.news";
+
+  public static String EMPTY_STRING = "";
+
+  public static String TOP_ARTICLES = "top";
 }

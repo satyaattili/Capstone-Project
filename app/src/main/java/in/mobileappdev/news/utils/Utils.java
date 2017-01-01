@@ -44,9 +44,13 @@ public class Utils {
       return time;
     }
     SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm a", Locale.getDefault());
-    String convertedString = df.format(convertedDate);;
+    String convertedString = df.format(convertedDate);
     Log.d(TAG, "Converted Time : "+convertedString);
     return convertedString;
   }
 
+  public static boolean isEmpty(String str) {
+    return !(str != null && !str.trim().equals(Constants.EMPTY_STRING));
+  }
 }
+

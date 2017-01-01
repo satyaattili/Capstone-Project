@@ -17,116 +17,124 @@
   -->
 
 <android.support.design.widget.CoordinatorLayout
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/tools">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        android:weightSum="100">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="100">
+
 
             <LinearLayout
+                android:id="@+id/textLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?colorPrimary"
+                android:elevation="2dp"
+                android:layout_alignParentBottom="true"
                 android:orientation="vertical"
-                android:weightSum="100">
+                android:padding="10dp">
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:src="@drawable/source_thumbnail"
-                    android:scaleType="centerCrop"
-                    android:transitionName="image"/>
-
-                <LinearLayout
-                    android:id="@+id/textLayout"
+                <TextView
+                    android:id="@+id/articleTitle"
+                    style="@style/TextAppearance.AppCompat.Title.Inverse"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="?colorPrimary"
-                    android:elevation="2dp"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:textColor="@color/md_white_1000"
+                    android:textIsSelectable="true"/>
 
-                    <TextView
-                        android:id="@+id/articleTitle"
-                        style="@style/TextAppearance.AppCompat.Title.Inverse"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:textColor="@color/md_white_1000"
-                        android:maxLines="2"
-                        android:textIsSelectable="true"/>
-
-                    <TextView
-                        android:id="@+id/articleAuthor"
-                        style="@style/TextAppearance.AppCompat.Subhead.Inverse"
-                        android:layout_width="wrap_content"
-                        android:textColor="@color/md_grey_300"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/articleAuthor"
+                    style="@style/TextAppearance.AppCompat.Subhead.Inverse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/md_grey_300"/>
 
             </LinearLayout>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+
+            <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_above="@id/textLayout"
+                android:scaleType="centerCrop"
+                android:src="@drawable/detail_image_placeholder"
+                android:transitionName="image"/>
 
-        </android.support.design.widget.CollapsingToolbarLayout>
 
-    </android.support.design.widget.AppBarLayout>
+        </RelativeLayout>
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scroll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbarStyle="outsideOverlay"
-        android:clipToPadding="false"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:clipToPadding="false">
-            <TextView
-                android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="bottom"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay">
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/ad_view"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/articleDesc"
-                android:padding="10dp"
-                android:textSize="16sp"/>
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                ads:adSize="BANNER"
+                ads:adUnitId="@string/banner_ad_unit_id"/>
+
             <Button
+                android:id="@+id/readMoreButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Read More"
+                android:layout_above="@id/ad_view"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
                 android:background="@drawable/btn_rounded_corner_bg"
                 android:padding="5dp"
-                android:textColor="@color/colorPrimary"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/readMoreButton"/>
-            <RelativeLayout
-                android:id="@+id/ad_banner"
-                android:layout_width="wrap_content"
-                android:layout_height="100dp"/>
-          </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+                android:text="Read More"
+                android:textColor="@color/colorPrimary"/>
+
+            <android.support.v4.widget.NestedScrollView
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/readMoreButton"
+                android:layout_alignParentTop="true"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay">
+
+                <TextView
+                    android:id="@+id/articleDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textSize="16sp"/>
+
+            </android.support.v4.widget.NestedScrollView>
+        </RelativeLayout>
+    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/sharebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_action_social_share"
+        app:layout_anchor="@id/scroll"
+        app:layout_anchorGravity="bottom|right|end"/>
 </android.support.design.widget.CoordinatorLayout>
