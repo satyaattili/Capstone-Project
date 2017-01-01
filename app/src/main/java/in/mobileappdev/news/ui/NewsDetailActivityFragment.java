@@ -106,7 +106,7 @@ public class NewsDetailActivityFragment extends Fragment {
 
     Glide.with(getActivity())
         .load(article.getUrlToImage())
-        .placeholder(R.drawable.source_thumbnail)
+        .placeholder(R.drawable.detail_image_placeholder)
         .crossFade()
         .centerCrop()
         .diskCacheStrategy(DiskCacheStrategy.RESULT)

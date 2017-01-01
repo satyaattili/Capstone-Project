@@ -73,7 +73,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_above="@id/textLayout"
                 android:scaleType="centerCrop"
-                android:src="@drawable/source_thumbnail"
+                android:src="@drawable/detail_image_placeholder"
                 android:transitionName="image"/>
 
 

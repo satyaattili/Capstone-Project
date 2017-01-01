@@ -28,7 +28,7 @@ import rx.Observable;
 
 public class APIClient {
 
-  private static final String GITHUB_BASE_URL = "https://newsapi.org/v1/";
+  private static final String BASE_URL = "https://newsapi.org/v1/";
   private static final String CACHE_CONTROL = "Cache-Control";
 
 
@@ -37,7 +37,7 @@ public class APIClient {
 
   private APIClient() {
 
-    final Retrofit retrofit = new Retrofit.Builder().baseUrl(GITHUB_BASE_URL)
+    final Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())

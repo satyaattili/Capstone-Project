@@ -37,165 +37,161 @@ import in.mobileappdev.news.views.ErrorClickListener;
 import in.mobileappdev.news.views.SourceGridView;
 
 public class MainActivity extends AppCompatActivity implements
-    NewsSourcesGridAdapter.OnClickListener, GoogleApiClient.OnConnectionFailedListener,
-    SourceGridView {
+        NewsSourcesGridAdapter.OnClickListener, GoogleApiClient.OnConnectionFailedListener,
+        SourceGridView {
 
-  private static final String TAG = "MainActivity";
-  private NewsSourcesGridAdapter newsSourcesGridAdapter;
-  private ArrayList<Source> newsSourcesList = new ArrayList<>();
+    private static final String TAG = "MainActivity";
+    private NewsSourcesGridAdapter newsSourcesGridAdapter;
+    private ArrayList<Source> newsSourcesList = new ArrayList<>();
 
-  @BindView(R.id.toolbar)
-  Toolbar toolbar;
-  @BindView(R.id.sources_recycler)
-  RecyclerView newsSorcesRecyclerView;
-  @BindView(R.id.loadingProgress)
-  ProgressBar loadingProgress;
-  @BindView(R.id.error_layout)
-  LinearLayout errorLayout;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.sources_recycler)
+    RecyclerView newsSorcesRecyclerView;
+    @BindView(R.id.loadingProgress)
+    ProgressBar loadingProgress;
+    @BindView(R.id.error_layout)
+    LinearLayout errorLayout;
 
-  private FirebaseAuth mAuth;
-  ;
-  private GoogleApiClient mGoogleApiClient;
-  private NewsSourcesPresenter newsSourcesPresenter;
-  private ErrorBuilder errorBuilder;
+    private FirebaseAuth mAuth;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
-    ButterKnife.bind(this);
-    setSupportActionBar(toolbar);
+    private GoogleApiClient mGoogleApiClient;
+    private NewsSourcesPresenter newsSourcesPresenter;
+    private ErrorBuilder errorBuilder;
 
-    if(NewsApp.getAppInstance().getLoginStatus()){
-      initFirebaseAuthentication();
-    }
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
 
-
-
-    initUi();
-
-    errorBuilder = new ErrorBuilder(this, errorLayout, new ErrorClickListener() {
-      @Override
-      public void onRetryClicked(View view) {
-        if (newsSourcesPresenter != null) {
-          newsSourcesPresenter.destroy();
-          newsSourcesPresenter.start();
+        if (NewsApp.getAppInstance().getLoginStatus()) {
+            initFirebaseAuthentication();
         }
-      }
-    });
 
-    newsSourcesPresenter = new NewsSourcesPresenter(this);
-    newsSourcesPresenter.start();
+        initUi();
 
-
-  }
-
-  private void initFirebaseAuthentication() {
-    mAuth = FirebaseAuth.getInstance();
-    GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestIdToken(getString(R.string.default_web_client_id))
-        .requestEmail()
-        .build();
-
-    mGoogleApiClient = new GoogleApiClient.Builder(this)
-        .enableAutoManage(this, this)
-        .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-        .build();
-  }
-
-
-  @Override
-  protected void onDestroy() {
-    if (newsSourcesPresenter != null) {
-      newsSourcesPresenter.destroy();
-    }
-    super.onDestroy();
-  }
-
-
-  private void initUi() {
-    newsSourcesGridAdapter = new NewsSourcesGridAdapter(this, newsSourcesList);
-    RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
-    newsSorcesRecyclerView.setLayoutManager(layoutManager);
-    newsSorcesRecyclerView.setAdapter(newsSourcesGridAdapter);
-    newsSourcesGridAdapter.setOnClickListener(this);
-  }
-
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.menu_main, menu);
-    return NewsApp.getAppInstance().getLoginStatus();
-  }
-
-  @Override
-  public boolean onOptionsItemSelected(MenuItem item) {
-
-    int id = item.getItemId();
-    if (id == R.id.action_settings) {
-      signOut();
-      return true;
-    }
-
-    return super.onOptionsItemSelected(item);
-  }
-
-
-  @Override
-  public void onClick(int position) {
-    String sourceId = newsSourcesList.get(position).getId();
-    Intent articleList = new Intent(MainActivity.this, ArticlesActivity.class);
-    articleList.putExtra(Constants.SOURCE_ID, sourceId);
-    articleList.putExtra(Constants.SOURCE_NAME, newsSourcesList.get(position).getName());
-    startActivity(articleList);
-  }
-
-  private void signOut() {
-    if(mAuth != null && mGoogleApiClient !=null){
-      mAuth.signOut();
-      Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-          new ResultCallback<Status>() {
+        errorBuilder = new ErrorBuilder(this, errorLayout, new ErrorClickListener() {
             @Override
-            public void onResult(@NonNull Status status) {
-              NewsApp.getAppInstance().setLoginStatus(false);
-              invalidateOptionsMenu();
+            public void onRetryClicked(View view) {
+                if (newsSourcesPresenter != null) {
+                    newsSourcesPresenter.destroy();
+                    newsSourcesPresenter.start();
+                }
             }
-          });
+        });
+
+        newsSourcesPresenter = new NewsSourcesPresenter(this);
+        newsSourcesPresenter.start();
+
 
     }
 
+    private void initFirebaseAuthentication() {
+        mAuth = FirebaseAuth.getInstance();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
 
-  }
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this, this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+    }
 
-  @Override
-  public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-  }
+    @Override
+    protected void onDestroy() {
+        if (newsSourcesPresenter != null) {
+            newsSourcesPresenter.destroy();
+        }
+        super.onDestroy();
+    }
 
-  @Override
-  public void showLoading() {
-    loadingProgress.setVisibility(View.VISIBLE);
 
-  }
+    private void initUi() {
+        newsSourcesGridAdapter = new NewsSourcesGridAdapter(this, newsSourcesList);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 2);
+        newsSorcesRecyclerView.setLayoutManager(layoutManager);
+        newsSorcesRecyclerView.setAdapter(newsSourcesGridAdapter);
+        newsSourcesGridAdapter.setOnClickListener(this);
+    }
 
-  @Override
-  public void hideLoading() {
-    loadingProgress.setVisibility(View.GONE);
-  }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return NewsApp.getAppInstance().getLoginStatus();
+    }
 
-  @Override
-  public void showSources(List<Source> sources) {
-    newsSourcesList.clear();
-    newsSourcesList.addAll(sources);
-    newsSourcesGridAdapter.notifyDataSetChanged();
-  }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-  @Override
-  public void showError(String message, int type) {
-    errorBuilder.showError(message, type, true);
-  }
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            signOut();
+            return true;
+        }
 
-  @Override
-  public void hideError() {
-    errorBuilder.hideErrorLayout();
-  }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public void onClick(int position) {
+        String sourceId = newsSourcesList.get(position).getId();
+        Intent articleList = new Intent(MainActivity.this, ArticlesActivity.class);
+        articleList.putExtra(Constants.SOURCE_ID, sourceId);
+        articleList.putExtra(Constants.SOURCE_NAME, newsSourcesList.get(position).getName());
+        startActivity(articleList);
+    }
+
+    private void signOut() {
+        if (mAuth != null && mGoogleApiClient != null) {
+            mAuth.signOut();
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                    new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            NewsApp.getAppInstance().setLoginStatus(false);
+                            invalidateOptionsMenu();
+                        }
+                    });
+
+        }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    public void showLoading() {
+        loadingProgress.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void hideLoading() {
+        loadingProgress.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showSources(List<Source> sources) {
+        newsSourcesList.clear();
+        newsSourcesList.addAll(sources);
+        newsSourcesGridAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showError(String message, int type) {
+        errorBuilder.showError(message, type, true);
+    }
+
+    @Override
+    public void hideError() {
+        errorBuilder.hideErrorLayout();
+    }
 }

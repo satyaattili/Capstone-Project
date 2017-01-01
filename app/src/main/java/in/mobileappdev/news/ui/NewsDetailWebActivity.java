@@ -101,18 +101,23 @@ public class NewsDetailWebActivity extends AppCompatActivity
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-
+    if (item.getItemId() == android.R.id.home) {
+      backPressed();
+    }
     return super.onOptionsItemSelected(item);
   }
 
-  @Override
-  public void onBackPressed() {
-    super.onBackPressed();
+  private void backPressed() {
     if(isDeeplink){
       startActivity(new Intent(this, MainActivity.class));
       finish();
     }else {
       super.onBackPressed();
     }
+  }
+
+  @Override
+  public void onBackPressed() {
+    backPressed();
   }
 }
