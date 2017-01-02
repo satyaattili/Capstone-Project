@@ -33,11 +33,19 @@ public class NewsApp extends Application {
   }
 
   public void setLoginStatus(boolean isLoggedIn){
-    getEditor().putBoolean("loggedInStatus", true).apply();
+    getEditor().putBoolean("loggedInStatus", isLoggedIn).apply();
   }
 
   public boolean getLoginStatus(){
     return getPreferences().getBoolean("loggedInStatus", false);
+  }
+
+  public void setFirstLaunch(boolean isFirstLaunch){
+    getEditor().putBoolean("first-launch", isFirstLaunch).apply();
+  }
+
+  public boolean getFirstLaunch(){
+    return getPreferences().getBoolean("first-launch", true);
   }
 
 

@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.mobileappdev.news.R;
 import in.mobileappdev.news.adapters.NewsArticlesListAdapter;
+import in.mobileappdev.news.bus.ArticleEvent;
 import in.mobileappdev.news.bus.ArticleListEvent;
 import in.mobileappdev.news.bus.MainBus;
 import in.mobileappdev.news.models.Article;
@@ -121,10 +123,10 @@ public class ArticlesActivity extends AppCompatActivity implements
 
   @Override
   public void onClick(View view,int position) {
-    View newsimageView = view.findViewById(R.id.thumbnail);
-    NewsDetailActivity.launch(this, newsimageView);
-    EventBus.getDefault().postSticky(new ArticleListEvent(listOfArticles.get(position)));
-   // MainBus.getInstance().post(new ArticleListEvent(listOfArticles.get(position)));
+    //View newsimageView = view.findViewById(R.id.thumbnail);
+    NewsDetailActivity.launch(this, position);
+    Log.d(TAG, "EVENT BUS onClick "+listOfArticles.size());
+    EventBus.getDefault().postSticky(new ArticleListEvent(listOfArticles));
 
   }
 
