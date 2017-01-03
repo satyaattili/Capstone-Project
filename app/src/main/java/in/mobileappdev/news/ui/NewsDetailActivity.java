@@ -1,63 +1,95 @@
 package in.mobileappdev.news.ui;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.Toast;
+import android.util.Log;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.mobileappdev.news.R;
+import in.mobileappdev.news.adapters.NewsDetailViewPagerAdapter;
+import in.mobileappdev.news.app.NewsApp;
 import in.mobileappdev.news.bus.ArticleListEvent;
+import in.mobileappdev.news.models.Article;
 
 public class NewsDetailActivity extends AppCompatActivity {
 
-  //@BindView(R.id.toolbar) Toolbar toolbar;
+    //@BindView(R.id.toolbar) Toolbar toolbar;
+    private String TAG = NewsDetailActivity.class.getSimpleName();
 
-  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-  public static void launch(Activity activity, View heroView) {
-    Intent intent = getLaunchIntent(activity);
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-     /* ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-          activity, heroView, heroView.getTransitionName());
-      ActivityCompat.startActivity(activity, intent, options.toBundle());*/
-      activity.startActivity(intent);
-    } else {
-      activity.startActivity(intent);
-    }
-  }
+    @BindView(R.id.news_detail_pager)
+    ViewPager newsDdetailViewPager;
+    private NewsDetailViewPagerAdapter adapter;
+    private int articlePosition = 0;
+    FragmentManager fm = getSupportFragmentManager();
+    private List<Fragment> fragmentList = new ArrayList<>();
 
-  public static Intent getLaunchIntent(Context context) {
-    Intent intent = new Intent(context, NewsDetailActivity.class);
-    return intent;
-  }
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_news_detail);
-    ButterKnife.bind(this);
-   // setSupportActionBar(toolbar);
-
-   if (savedInstanceState == null) {
-      getSupportFragmentManager().beginTransaction()
-          .add(R.id.container, NewsDetailActivityFragment.createInstance())
-          .commit();
+    public static void launch(Activity activity, int position) {
+        activity.startActivity(getLaunchIntent(activity, position));
     }
 
-  }
+    public static Intent getLaunchIntent(Context context, int position) {
+
+        Intent intent = new Intent(context, NewsDetailActivity.class);
+        intent.putExtra("position", position);
+        return intent;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_news_detail);
+        ButterKnife.bind(this);
+        onNewIntent(getIntent());
+        if(NewsApp.getAppInstance().getFirstLaunch()){
+            NewsApp.getAppInstance().setFirstLaunch(false);
+            NewsDetailHelperFragment helperFragment = new NewsDetailHelperFragment();
+            helperFragment.show(fm,"helper");
+        }
+    }
+
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    public void recieveArticleList(ArticleListEvent articleListEvent) {
+        Log.d(TAG, "EVENT BUS recieveArticleList " + articleListEvent.getArticleList().size());
+        fragmentList.clear();
+        for (Article article : articleListEvent.getArticleList()) {
+            fragmentList.add(NewsDetailActivityFragment.createInstance(article));
+        }
+        adapter = new NewsDetailViewPagerAdapter(getSupportFragmentManager(), fragmentList);
+        newsDdetailViewPager.setAdapter(adapter);
+        newsDdetailViewPager.setCurrentItem(articlePosition);
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        if (intent != null) {
+            articlePosition = intent.getIntExtra("position", 0);
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package in.mobileappdev.news.bus;
 
+import java.util.List;
+
 import in.mobileappdev.news.models.Article;
 
 /**
@@ -8,17 +10,17 @@ import in.mobileappdev.news.models.Article;
 
 public class ArticleListEvent {
 
-  private Article article;
+  private List<Article> articles;
 
-  public ArticleListEvent(Article article) {
-    this.article = article;
+  public ArticleListEvent(List<Article>  articles) {
+    this.articles = articles;
   }
 
-  public Article getArticle() {
-    return article;
+  public List<Article> getArticleList() {
+    return articles;
   }
 
-  public void setArticle(Article article) {
-    this.article = article;
+  public void setArticle(List<Article>  article) {
+    this.articles = articles;
   }
 }
