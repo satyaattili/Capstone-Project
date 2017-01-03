@@ -7,13 +7,16 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
 import in.mobileappdev.news.BuildConfig;
 import in.mobileappdev.news.R;
+import in.mobileappdev.news.utils.Constants;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -25,6 +28,7 @@ public class SplashScreenActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_splash_screen);
+    onNewIntent(getIntent());
 
     firebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
 
@@ -35,6 +39,11 @@ public class SplashScreenActivity extends AppCompatActivity {
     firebaseRemoteConfig.setDefaults(R.xml.default_remote_config);
 
     fetchLoginConfig();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
   }
 
   private void fetchLoginConfig() {
@@ -69,7 +78,7 @@ public class SplashScreenActivity extends AppCompatActivity {
           i = new Intent(SplashScreenActivity.this, LoginActivity.class);
           Log.d(TAG, "Remote Config : LOGIN NEEDED");
         } else {
-          i = new Intent(SplashScreenActivity.this, MainActivity.class);
+          i = new Intent(SplashScreenActivity.this, SourcesActivity.class);
           Log.d(TAG, "Remote Config : LOGIN NOT NEEDED");
         }
 
@@ -77,5 +86,22 @@ public class SplashScreenActivity extends AppCompatActivity {
         finish();
       }
     }, SPLASH_TIME_OUT);
+  }
+
+  @Override
+  protected void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    Bundle bundle = intent.getExtras();
+    if(bundle == null){
+      return;
+    }
+    for (String key : bundle.keySet()) {
+      Log.d(TAG, "KEY : "+key+ " "+bundle.get(key).toString());
+    }
+    if(intent.getStringExtra(Constants.DEEPLINK) != null){
+      Intent i = new Intent(this, NewsDetailWebActivity.class);
+      i.putExtra(Constants.URL, intent.getStringExtra(Constants.DEEPLINK));
+      startActivity(i);
+    }
   }
 }

@@ -25,9 +25,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import in.mobileappdev.news.R;
+import in.mobileappdev.news.api.APIClient;
 import in.mobileappdev.news.app.NewsApp;
+import in.mobileappdev.news.models.TokenResponse;
+import rx.Observer;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 
 public class LoginActivity extends AppCompatActivity implements
@@ -42,6 +49,8 @@ public class LoginActivity extends AppCompatActivity implements
   private FirebaseAuth.AuthStateListener mAuthListener;
 
   private GoogleApiClient mGoogleApiClient;
+
+  private Subscription subscription;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -133,8 +142,10 @@ public class LoginActivity extends AppCompatActivity implements
   private void updateUI(FirebaseUser user) {
     hideProgressDialog();
     if (user != null) {
+      String token = FirebaseInstanceId.getInstance().getToken();
       NewsApp.getAppInstance().setLoginStatus(true);
-      startActivity(new Intent(LoginActivity.this, MainActivity.class));
+      startActivity(new Intent(LoginActivity.this, SourcesActivity.class));
+      saveToken(user.getDisplayName(), user.getEmail(),token );
       finish();
     } else {
       findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
@@ -173,5 +184,31 @@ public class LoginActivity extends AppCompatActivity implements
     }
   }
 
+  private void saveToken(String name, String email,@NonNull String token) {
+      subscription = APIClient.getInstance()
+              .saveToken(name, email, token)
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(new Observer<TokenResponse>() {
+                @Override
+                public void onCompleted() {
+                  Log.d(TAG, "In onCompleted()");
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                  Log.d(TAG, "In onError() " + e.getMessage());
+
+                }
+
+                @Override
+                public void onNext(TokenResponse response) {
+                  Log.d(TAG, "In onNext()");
+
+                }
+              });
+
+
+  }
 
 }

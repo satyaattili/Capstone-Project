@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Patterns;
 import android.view.MenuItem;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,9 +52,17 @@ public class NewsDetailWebActivity extends AppCompatActivity
   }
 
   private void loadUrl(String url) {
-    webView.getSettings().setJavaScriptEnabled(true);
-    webView.setWebViewClient(new CustomWebViewclient(this));
-    webView.loadUrl(url);
+    if(Patterns.WEB_URL.matcher(url).matches()){
+      webView.getSettings().setJavaScriptEnabled(true);
+      webView.setWebViewClient(new CustomWebViewclient(this));
+      webView.loadUrl(url);
+    }else{
+      Toast.makeText(this, "Url not valid, Navigating to Home screen", Toast.LENGTH_LONG).show();
+      startActivity(new Intent(this, SplashScreenActivity.class));
+      finish();
+
+    }
+
   }
 
 
@@ -68,6 +78,10 @@ public class NewsDetailWebActivity extends AppCompatActivity
     } else {
       url = intent.getStringExtra(Constants.URL);
       isDeeplink = false;
+      if(null == url){
+        url = intent.getStringExtra(Constants.DEEPLINK);
+        isDeeplink = true;
+      }
     }
     setToolbarTitle(url);
     loadUrl(url);
@@ -109,7 +123,7 @@ public class NewsDetailWebActivity extends AppCompatActivity
 
   private void backPressed() {
     if(isDeeplink){
-      startActivity(new Intent(this, MainActivity.class));
+      startActivity(new Intent(this, SourcesActivity.class));
       finish();
     }else {
       super.onBackPressed();

@@ -2,70 +2,53 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.jakewharton.butterknife'
 
 android {
-  compileSdkVersion 25
-  buildToolsVersion "25.0.1"
-  defaultConfig {
-    applicationId "in.mobileappdev.news"
-    minSdkVersion 16
-    targetSdkVersion 25
-    versionCode 1
-    versionName "1.0"
-    vectorDrawables.useSupportLibrary = true
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-  }
-  buildTypes {
-    release {
-      minifyEnabled true
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "in.mobileappdev.news"
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-  }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
 }
 
 dependencies {
-  compile fileTree(dir: 'libs', include: ['*.jar'])
-  androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-    exclude group: 'com.android.support', module: 'support-annotations'
-  })
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
 
-  //Auth
   compile 'com.android.support:appcompat-v7:25.1.0'
-  compile 'com.android.support:design:25.1.0'
-  compile 'com.android.support:cardview-v7:25.1.0'
-  compile 'io.reactivex:rxandroid:1.2.1'
-  compile 'io.reactivex:rxjava:1.1.6'
-  compile 'com.squareup.retrofit2:retrofit:2.1.0'
-  compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
-  compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-  compile 'com.github.bumptech.glide:glide:3.7.0'
-  compile 'org.greenrobot:eventbus:3.0.0'
-  compile 'com.jakewharton:butterknife:8.4.0'
-
-  //firebase core
-  compile 'com.google.firebase:firebase-core:10.0.1'
-
-  //crash reporting
-  compile 'com.google.firebase:firebase-crash:10.0.1'
-
-  //remote config
-  compile 'com.google.firebase:firebase-config:10.0.1'
-
-
-  //authentication
-  compile 'com.google.firebase:firebase-auth:10.0.1'
-  compile 'com.google.android.gms:play-services-auth:10.0.1'
-
-  //adMob
-  compile 'com.google.firebase:firebase-ads:10.0.1'
-
-  //app indexing
-  compile 'com.google.firebase:firebase-appindexing:10.0.0'
-
-  //dynamic links
-  compile 'com.google.firebase:firebase-invites:10.0.1'
-
-  //test
-  testCompile 'junit:junit:4.12'
-  annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+    compile'com.android.support:design:25.1.0'
+    compile 'com.android.support:cardview-v7:25.1.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.google.firebase:firebase-core:10.0.1'
+    compile 'com.google.firebase:firebase-crash:10.0.1'
+    compile 'com.google.firebase:firebase-config:10.0.1'
+    compile 'com.google.firebase:firebase-auth:10.0.1'
+    compile 'com.google.android.gms:play-services-auth:10.0.1'
+    compile 'com.google.firebase:firebase-ads:10.0.1'
+    compile 'com.google.firebase:firebase-appindexing:10.0.1'
+    compile 'com.google.firebase:firebase-invites:10.0.1'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
+    testCompile 'junit:junit:4.12'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
