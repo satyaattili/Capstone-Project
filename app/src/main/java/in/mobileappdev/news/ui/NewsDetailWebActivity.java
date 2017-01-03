@@ -52,7 +52,7 @@ public class NewsDetailWebActivity extends AppCompatActivity
   }
 
   private void loadUrl(String url) {
-    if(Patterns.WEB_URL.matcher(url).matches()){
+    if(url != null && Patterns.WEB_URL.matcher(url).matches()){
       webView.getSettings().setJavaScriptEnabled(true);
       webView.setWebViewClient(new CustomWebViewclient(this));
       webView.loadUrl(url);
