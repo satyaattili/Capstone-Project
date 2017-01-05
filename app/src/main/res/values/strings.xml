@@ -6,4 +6,19 @@
     <string name="unknown_issue">Interrupted by unknown issue,\n Please try again</string>
     <string name="swipe_left_right_to_read_previous_next_articles">Swipe left/right to read previous/next articles</string>
     <string name="got_it">GOT IT</string>
+    <string name="title_activity_sources">News Papers</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_favorite_aricles">About Us</string>
+    <string name="nav_logout">Logout</string>
+    <string name="nav_about_us">About Us</string>
+    <string name="nav_credits">Credits</string>
+    <string name="nav_notifications">Notifications</string>
+    <string name="login_message">Keeps you informed of daily news from top 50 news sources in a most efficient way</string>
+    <string name="app_logo">app logo</string>
+    <string name="notifications">Notifications</string>
+    <string name="no_notifications_msg">No Notifications received yet</string>
+    <string name="nav_rateus">Rate Us</string>
+    <string name="app_version">Version 1.0</string>
 </resources>

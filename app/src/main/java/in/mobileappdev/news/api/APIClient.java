@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import in.mobileappdev.news.app.NewsApp;
 import in.mobileappdev.news.models.NewsArticlesListResponse;
 import in.mobileappdev.news.models.SourcesResponce;
+import in.mobileappdev.news.models.TokenResponse;
 import in.mobileappdev.news.utils.RxErrorHandlingCallAdapterFactory;
 import in.mobileappdev.news.utils.Utils;
 import okhttp3.Cache;
@@ -61,6 +62,10 @@ public class APIClient {
   public Observable<NewsArticlesListResponse> getArticles(@NonNull String sourceId, String
       sortBy, String apiKey) {
     return apiService.getNewsArticles(sourceId, sortBy, apiKey);
+  }
+
+  public Observable<TokenResponse> saveToken(String name, String email, String token) {
+    return apiService.saveToken(name, email, token);
   }
 
 

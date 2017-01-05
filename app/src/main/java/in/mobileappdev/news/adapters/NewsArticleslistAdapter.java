@@ -48,7 +48,7 @@ public class NewsArticlesListAdapter extends RecyclerView.Adapter<NewsArticlesLi
     //glide
     Glide.with(context)
         .load(article.getUrlToImage())
-        .placeholder(R.drawable.source_thumbnail)
+        .placeholder(R.drawable.source_thumbnail_blue)
         .crossFade()
         .diskCacheStrategy(DiskCacheStrategy.RESULT)
         .into(viewHolder.thumbnail);

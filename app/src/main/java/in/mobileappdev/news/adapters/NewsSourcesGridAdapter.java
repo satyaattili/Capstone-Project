@@ -44,11 +44,10 @@ public class NewsSourcesGridAdapter extends RecyclerView.Adapter<NewsSourcesGrid
   @Override
   public void onBindViewHolder(final NewsSourcesGridAdapter.ViewHolder viewHolder, int i) {
 
-    viewHolder.sourceName.setText(newsSources.get(i).getName());
     //glide
     Glide.with(context)
         .load(newsSources.get(i).getUrlsToLogos().getSmall())
-        .placeholder(R.drawable.source_thumbnail)
+        .placeholder(R.drawable.source_thumbnail_blue)
         .crossFade()
         .diskCacheStrategy(DiskCacheStrategy.RESULT)
         .into(viewHolder.sourceImage);
@@ -73,7 +72,6 @@ public class NewsSourcesGridAdapter extends RecyclerView.Adapter<NewsSourcesGrid
   }
 
   public class  ViewHolder extends RecyclerView.ViewHolder {
-    @BindView(R.id.source_title) TextView sourceName;
     @BindView(R.id.source_img) ImageView sourceImage;
     @BindView(R.id.source_item_parent) RelativeLayout parent;
 

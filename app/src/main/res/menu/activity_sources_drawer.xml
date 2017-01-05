@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_notifications"
+            android:icon="@drawable/vector_notifications"
+            android:title="@string/nav_notifications" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/vector_info"
+            android:title="@string/nav_about_us" />
+
+        <item
+            android:id="@+id/nav_credits"
+            android:icon="@drawable/vector_people"
+            android:title="@string/nav_credits" />
+
+        <item
+            android:id="@+id/nav_rateus"
+            android:icon="@drawable/vector_play_install"
+            android:title="@string/nav_rateus" />
+
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/vector_exit_to_app"
+            android:title="@string/nav_logout" />
+    </group>
+
+
+</menu>
