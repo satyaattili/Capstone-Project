@@ -10,6 +10,7 @@ import android.view.View;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.mobileappdev.news.BuildConfig;
 import in.mobileappdev.news.R;
 
 public class AboutUsActivity extends AppCompatActivity {
