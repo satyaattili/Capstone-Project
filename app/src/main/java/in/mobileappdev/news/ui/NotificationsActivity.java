@@ -12,17 +12,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.mobileappdev.news.R;
-import in.mobileappdev.news.adapters.NewsArticlesListAdapter;
+import in.mobileappdev.news.adapters.NewsArticleslistAdapter;
 import in.mobileappdev.news.db.DatabaseHandler;
 import in.mobileappdev.news.models.Article;
 import in.mobileappdev.news.utils.Constants;
 
-public class NotificationsActivity extends AppCompatActivity implements NewsArticlesListAdapter.OnClickListener{
+public class NotificationsActivity extends AppCompatActivity implements NewsArticleslistAdapter.OnClickListener{
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -33,7 +32,7 @@ public class NotificationsActivity extends AppCompatActivity implements NewsArti
     @BindView(R.id.error_layout)
     TextView errorText;
 
-    private NewsArticlesListAdapter newsArticlesAdapter;
+    private NewsArticleslistAdapter newsArticlesAdapter;
     private ArrayList<Article> notifications;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +55,7 @@ public class NotificationsActivity extends AppCompatActivity implements NewsArti
             errorText.setText(R.string.no_notifications_msg);
         }
 
-        newsArticlesAdapter = new NewsArticlesListAdapter(this, notifications);
+        newsArticlesAdapter = new NewsArticleslistAdapter(this, notifications);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         notificationListView.setLayoutManager(layoutManager);
         notificationListView.addItemDecoration(

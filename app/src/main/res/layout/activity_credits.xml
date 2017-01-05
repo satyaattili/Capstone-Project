@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="Android Support Library"
+                    android:text="@string/credits_android_support_library"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -46,7 +46,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="https://developer.android.com/"
+                    android:paddingRight="10dp"
+                    android:text="@string/credits_https_developer_android_com"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -67,7 +68,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:padding="10dp"
-                    android:text="Firebase"
+                    android:text="@string/credit_firebase"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -75,8 +76,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
-                    android:text="https://firebase.google.com/"
+                    android:paddingRight="10dp"
+                    android:text="@string/credit_https_firebase_google_com"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -94,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="News API"
+                    android:text="@string/credit_news_api"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -102,35 +103,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:text="https://newsapi.org/"
-                    android:textSize="15sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/md_blue_grey_100"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="Rx Java"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
-                    android:text="https://github.com/ReactiveX/RxJava"
+                    android:paddingRight="10dp"
+                    android:text="@string/credit_https_newsapi_org"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -149,7 +123,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="Butterknife"
+                    android:text="@string/credit_rx_java"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -157,8 +131,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
-                    android:text="http://jakewharton.github.io/butterknife/"
+                    android:paddingRight="10dp"
+                    android:text="@string/credit_https_github_com_reactivex_rxjava"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -177,7 +151,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="Glide Image Library"
+                    android:text="@string/credit_butterknife"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -185,8 +159,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
-                    android:text="https://github.com/bumptech/glide"
+                    android:paddingRight="10dp"
+                    android:text="@string/credit_http_jakewharton_github_io_butterknife"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -204,10 +178,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:lines="1"
                     android:padding="10dp"
-                    android:text="Retrofit"
+                    android:text="@string/credit_glide_image_library"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -215,8 +187,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
-                    android:text="https://square.github.io/retrofit/"
+                    android:paddingRight="10dp"
+                    android:text="@string/credit_https_github_com_bumptech_glide"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -237,7 +209,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:padding="10dp"
-                    android:text="Event Bus"
+                    android:text="@string/creidt_retrofit"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -245,8 +217,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
-                    android:text="http://greenrobot.org/eventbus/"
+                    android:paddingRight="10dp"
+                    android:text="@string/credit_https_square_github_io_retrofit"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -267,7 +239,7 @@
                     android:ellipsize="end"
                     android:lines="1"
                     android:padding="10dp"
-                    android:text="Circular Image View"
+                    android:text="@string/credit_event_bus"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -275,8 +247,34 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
-                    android:text="https://github.com/lopspower/CircularImageView"
+                    android:paddingRight="10dp"
+                    android:text="@string/credit_http_greenrobot_org_eventbus"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                android:background="@color/md_blue_grey_100"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:lines="1"
+                    android:padding="10dp"
+                    android:text="@string/credit_circular_image_view"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/https_gitcredit_hub_com_lopspower_circularimageview"
                     android:textSize="15sp" />
             </LinearLayout>
 

@@ -21,4 +21,26 @@
     <string name="no_notifications_msg">No Notifications received yet</string>
     <string name="nav_rateus">Rate Us</string>
     <string name="app_version">Version 1.0</string>
+    <string name="credits_android_support_library">Android Support Library</string>
+    <string name="credits_https_developer_android_com">https://developer.android.com/</string>
+    <string name="credit_firebase">Firebase</string>
+    <string name="credit_https_firebase_google_com">https://firebase.google.com/</string>
+    <string name="credit_news_api">News API</string>
+    <string name="credit_https_newsapi_org">https://newsapi.org/</string>
+    <string name="credit_rx_java">Rx Java</string>
+    <string name="credit_https_github_com_reactivex_rxjava">https://github.com/ReactiveX/RxJava</string>
+    <string name="credit_butterknife">Butterknife</string>
+    <string name="credit_http_jakewharton_github_io_butterknife">http://jakewharton.github.io/butterknife/</string>
+    <string name="credit_glide_image_library">Glide Image Library</string>
+    <string name="credit_https_github_com_bumptech_glide">https://github.com/bumptech/glide</string>
+    <string name="creidt_retrofit">Retrofit</string>
+    <string name="credit_https_square_github_io_retrofit">https://square.github.io/retrofit/</string>
+    <string name="credit_event_bus">Event Bus</string>
+    <string name="credit_http_greenrobot_org_eventbus">http://greenrobot.org/eventbus/</string>
+    <string name="credit_circular_image_view">Circular Image View</string>
+    <string name="https_gitcredit_hub_com_lopspower_circularimageview">https://github.com/lopspower/CircularImageView</string>
+    <string name="about_us_us">display live news headlines and images from the top 50 sources</string>
+    <string name="about_us_http_mobileappdev_in">http://mobileappdev.in</string>
+    <string name="aboutus_satya_mobileappdev_in">satya@mobileappdev.in</string>
+    <string name="refresh">Refresh</string>
 </resources>

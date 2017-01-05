@@ -22,10 +22,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.mobileappdev.news.R;
-import in.mobileappdev.news.adapters.NewsArticlesListAdapter;
-import in.mobileappdev.news.bus.ArticleEvent;
+import in.mobileappdev.news.adapters.NewsArticleslistAdapter;
 import in.mobileappdev.news.bus.ArticleListEvent;
-import in.mobileappdev.news.bus.MainBus;
 import in.mobileappdev.news.models.Article;
 import in.mobileappdev.news.presenter.NewsArticlesPresenter;
 import in.mobileappdev.news.utils.Constants;
@@ -34,13 +32,13 @@ import in.mobileappdev.news.views.ErrorBuilder;
 import in.mobileappdev.news.views.ErrorClickListener;
 
 public class ArticlesActivity extends AppCompatActivity implements
-    NewsArticlesListAdapter.OnClickListener, ArticleListView, SwipeRefreshLayout.OnRefreshListener {
+    NewsArticleslistAdapter.OnClickListener, ArticleListView, SwipeRefreshLayout.OnRefreshListener {
 
   private String TAG = "ArticlesActivity";
 
   private ArrayList<Article> listOfArticles = new ArrayList<>();
   private NewsArticlesPresenter presenter;
-  private NewsArticlesListAdapter newsArticlesAdapter;
+  private NewsArticleslistAdapter newsArticlesAdapter;
   private ErrorBuilder errorBuilder;
 
   @BindView(R.id.toolbar)
@@ -103,7 +101,7 @@ public class ArticlesActivity extends AppCompatActivity implements
   }
 
   private void initUi() {
-    newsArticlesAdapter = new NewsArticlesListAdapter(this, listOfArticles);
+    newsArticlesAdapter = new NewsArticleslistAdapter(this, listOfArticles);
     LinearLayoutManager layoutManager = new LinearLayoutManager(this);
     articlesRecyclerView.setLayoutManager(layoutManager);
     articlesRecyclerView.addItemDecoration(

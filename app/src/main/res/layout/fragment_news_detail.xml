@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--
-  Copyright 2015 Google Inc. All rights reserved.
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-  -->
-
-<android.support.design.widget.CoordinatorLayout
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,9 +24,9 @@
                 android:id="@+id/textLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:background="?colorPrimary"
                 android:elevation="2dp"
-                android:layout_alignParentBottom="true"
                 android:orientation="vertical"
                 android:padding="10dp">
 
@@ -54,14 +38,14 @@
                     android:ellipsize="end"
                     android:maxLines="2"
                     android:textColor="@color/md_white_1000"
-                    android:textIsSelectable="true"/>
+                    android:textIsSelectable="true" />
 
                 <TextView
                     android:id="@+id/articleAuthor"
                     style="@style/TextAppearance.AppCompat.Subhead.Inverse"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/md_grey_300"/>
+                    android:textColor="@color/md_grey_300" />
 
             </LinearLayout>
 
@@ -70,11 +54,11 @@
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
                 android:layout_above="@id/textLayout"
+                android:layout_alignParentTop="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/detail_image_placeholder"
-                android:transitionName="image"/>
+                android:transitionName="image" />
 
 
         </RelativeLayout>
@@ -94,7 +78,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 ads:adSize="BANNER"
-                ads:adUnitId="@string/banner_ad_unit_id"/>
+                ads:adUnitId="@string/banner_ad_unit_id" />
 
             <Button
                 android:id="@+id/readMoreButton"
@@ -107,7 +91,7 @@
                 android:background="@drawable/btn_rounded_corner_bg"
                 android:padding="5dp"
                 android:text="Read More"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
 
             <android.support.v4.widget.NestedScrollView
                 android:id="@+id/scroll"
@@ -123,11 +107,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
 
             </android.support.v4.widget.NestedScrollView>
         </RelativeLayout>
     </LinearLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/sharebtn"
         android:layout_width="wrap_content"
@@ -136,5 +121,5 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_action_social_share"
         app:layout_anchor="@id/scroll"
-        app:layout_anchorGravity="bottom|right|end"/>
+        app:layout_anchorGravity="bottom|right|end" />
 </android.support.design.widget.CoordinatorLayout>
