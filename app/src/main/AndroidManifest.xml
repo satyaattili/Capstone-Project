@@ -42,10 +42,12 @@
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="OPEN_ACTIVITY_1" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -55,21 +57,28 @@
             android:label="@string/title_activity_sources"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.FavoriteAriclesActivity"
+            android:name=".ui.AboutUsActivity"
             android:label="@string/title_activity_favorite_aricles"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <service
-            android:name=".firebase.NewsFirebaseMessagingService">
+        <service android:name=".firebase.NewsFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service android:name=".firebase.FBInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name=".ui.NotificationsActivity"
+            android:label="@string/notifications"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.CreditsActivity"
+            android:label="@string/nav_credits"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

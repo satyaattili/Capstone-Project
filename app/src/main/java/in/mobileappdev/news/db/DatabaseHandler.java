@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import in.mobileappdev.news.models.Article;
 import in.mobileappdev.news.models.Notification;
 
 /**
@@ -24,9 +25,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
   private static final int DATABASE_VERSION = 1;
   private static final String DATABASE_NAME = "in.mobileappde.news";
   private static final String TABLE_NOTIFICATIONS = "notifications";
-  private static final String TABLE_SAVED_ARTICLES = "favorite";
   private static final String KEY_ID = "id";
   private static final String KEY_NOTIFICATION_MSG = "message";
+  private static final String KEY_NOTIFICATION_URL = "url";
   private static final String KEY_NOTIFICATION_IMG = "message_img";
   private static final String KEY_NOTIFICATION_TIME = "created_at";
 
@@ -38,7 +39,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
   @Override
   public void onCreate(SQLiteDatabase db) {
     String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_NOTIFICATIONS + "("
-        + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NOTIFICATION_MSG + " TEXT,"
+        + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NOTIFICATION_URL + " TEXT," + KEY_NOTIFICATION_MSG + " TEXT,"
         + KEY_NOTIFICATION_IMG + " TEXT," +  KEY_NOTIFICATION_TIME+")";
     db.execSQL(CREATE_CONTACTS_TABLE);
   }
@@ -58,12 +59,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
    */
 
   // Adding new contact
-  public void saveNotification(String notification, String imageUrl) {
+  public void saveNotification(String url, String notification, String imageUrl) {
     SQLiteDatabase db = this.getWritableDatabase();
 
     ContentValues values = new ContentValues();
-    values.put(KEY_NOTIFICATION_MSG, notification); // Contact Name
-    values.put(KEY_NOTIFICATION_IMG, imageUrl); // Contact Phone
+    values.put(KEY_NOTIFICATION_MSG, notification);
+    values.put(KEY_NOTIFICATION_IMG, imageUrl);
+    values.put(KEY_NOTIFICATION_URL, url);
 
     String desiredFormat = new SimpleDateFormat(
         "yyyy-M-dd hh:mm:ss", Locale.ENGLISH).format(new Date());;
@@ -77,8 +79,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
   // Getting All Contacts
-  public List<Notification> getAllNotifications() {
-    List<Notification> notificatioList = new ArrayList<Notification>();
+  public ArrayList<Article> getAllNotifications() {
+    ArrayList<Article> notificatioList = new ArrayList<>();
     // Select All Query
     String selectQuery = "SELECT  * FROM " + TABLE_NOTIFICATIONS;
 
@@ -88,9 +90,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // looping through all rows and adding to list
     if (cursor.moveToFirst()) {
       do {
-        Notification contact = new Notification(cursor.getString(1),cursor.getString(2),cursor
-            .getString(3));
-        notificatioList.add(contact);
+        //author,tile, des, url, urlImage, time
+        Article article = new Article();
+        article.setTitle(cursor.getString(2));
+        article.setDescription(cursor.getString(2));
+        article.setUrl(cursor.getString(1));
+        article.setUrlToImage(cursor.getString(3));
+        article.setPublishedAt(cursor.getString(4));
+        notificatioList.add(article);
       } while (cursor.moveToNext());
     }
 

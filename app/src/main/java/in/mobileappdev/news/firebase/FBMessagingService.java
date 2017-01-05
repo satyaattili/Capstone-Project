@@ -56,8 +56,7 @@ public class FBMessagingService extends FirebaseMessagingService {
   //This method is only generating push notification
   //It is same as we did in earlier posts
   private void sendNotification(String messageBody, String url) {
-    DatabaseHandler dbHandler = new DatabaseHandler(this);
-    dbHandler.saveNotification(messageBody, url);
+
     Intent intent = new Intent(this, NewsDetailWebActivity.class);
     intent.putExtra(Constants.DEEPLINK, messageBody);
     intent.setAction(Intent.ACTION_VIEW);

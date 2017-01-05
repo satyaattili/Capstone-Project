@@ -20,7 +20,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import in.mobileappdev.news.R;
+import in.mobileappdev.news.db.DatabaseHandler;
 import in.mobileappdev.news.ui.NewsDetailWebActivity;
+import in.mobileappdev.news.utils.Constants;
 
 public class NewsFirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
 
@@ -41,19 +43,23 @@ public class NewsFirebaseMessagingService extends com.google.firebase.messaging.
         Log.d(TAG, "FCM Data: " + remoteMessage.getData());
 
         //String tag = remoteMessage.getNotification().getTag();
+        String title = remoteMessage.getData().get("title");
         String msg = remoteMessage.getData().get("message");
         String img = remoteMessage.getData().get("image");
         String type = remoteMessage.getData().get("type");
 
         image = getBitmapFromURL(img);
-
-        sendNotification(type, msg, image);
+        DatabaseHandler dbHandler = new DatabaseHandler(this);
+        dbHandler.saveNotification(msg,title, img);
+        sendNotification(type,title, msg, image);
     }
 
-    private void sendNotification(String type, String messageBody, Bitmap img) {
+    private void sendNotification(String type, String title,String messageBody, Bitmap img) {
         Intent intent = new Intent(this, NewsDetailWebActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+        intent.putExtra(Constants.DEEPLINK, messageBody);
+        intent.setAction(Intent.ACTION_VIEW);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -61,7 +67,7 @@ public class NewsFirebaseMessagingService extends com.google.firebase.messaging.
         if (type.equalsIgnoreCase("image")) {
             notificationBuilder = new NotificationCompat.Builder(this)
                     .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Firebase Cloud Messaging")
+                    .setContentTitle(title)
                     .setContentText(messageBody)
                     .setStyle(new NotificationCompat.BigPictureStyle()
                             .bigPicture(img))
@@ -71,7 +77,7 @@ public class NewsFirebaseMessagingService extends com.google.firebase.messaging.
         } else {
             notificationBuilder = new NotificationCompat.Builder(this)
                     .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Firebase Cloud Messaging")
+                    .setContentTitle(title)
                     .setContentText(messageBody)
                     .setAutoCancel(true)
                     .setSound(defaultSoundUri)
@@ -81,7 +87,7 @@ public class NewsFirebaseMessagingService extends com.google.firebase.messaging.
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        notificationManager.notify(0, notificationBuilder.build());
     }
 
     public static Bitmap getBitmapFromURL(String src) {

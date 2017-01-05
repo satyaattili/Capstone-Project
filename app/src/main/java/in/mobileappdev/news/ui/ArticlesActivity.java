@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -172,5 +173,14 @@ public class ArticlesActivity extends AppCompatActivity implements
       presenter.destroy();
       presenter.start();
     }
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem menuItem) {
+    switch (menuItem.getItemId()) {
+      case android.R.id.home:
+        onBackPressed();
+    }
+    return (super.onOptionsItemSelected(menuItem));
   }
 }

@@ -16,9 +16,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -26,6 +30,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +65,14 @@ public class SourcesActivity extends AppCompatActivity
     @BindView(R.id.error_layout)
     LinearLayout errorLayout;
 
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+    private ActionBarDrawerToggle toggle;
+
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+
     private FirebaseAuth mAuth;
 
     private GoogleApiClient mGoogleApiClient;
@@ -71,13 +85,11 @@ public class SourcesActivity extends AppCompatActivity
         setContentView(R.layout.activity_sources);
         ButterKnife.bind(this);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         setSupportActionBar(toolbar);
@@ -86,6 +98,7 @@ public class SourcesActivity extends AppCompatActivity
             initFirebaseAuthentication();
         }
 
+        initHeaderViewUi();
         initUi();
 
         errorBuilder = new ErrorBuilder(this, errorLayout, new ErrorClickListener() {
@@ -104,7 +117,6 @@ public class SourcesActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -114,22 +126,16 @@ public class SourcesActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return NewsApp.getAppInstance().getLoginStatus();
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            signOut();
+        if (toggle.onOptionsItemSelected(item)) {
             return true;
-        }else if(id == android.R.id.home){
-            
         }
-
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
 
@@ -138,19 +144,19 @@ public class SourcesActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Intent intent = null;;
+        if (id == R.id.nav_notifications) {
+            intent = new Intent(this, NotificationsActivity.class);
+        } else if (id == R.id.nav_about) {
+            intent = new Intent(this, AboutUsActivity.class);
+        } else if (id == R.id.nav_credits) {
+            intent = new Intent(this, CreditsActivity.class);
+        } else if (id == R.id.nav_logout) {
+            signOut();
+        }
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if(intent != null){
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -189,6 +195,24 @@ public class SourcesActivity extends AppCompatActivity
         newsSourcesGridAdapter.setOnClickListener(this);
     }
 
+    private void initHeaderViewUi() {
+        View headerView = navigationView.getHeaderView(0);
+        TextView nav_user = (TextView) headerView.findViewById(R.id.userName);
+        TextView nav_email = (TextView) headerView.findViewById(R.id.userMail);
+        CircularImageView nav_userImage = (CircularImageView) headerView.findViewById(R.id.userProfileImage);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            nav_user.setText(user.getDisplayName());
+            nav_email.setText(user.getEmail());
+            Glide.with(this)
+                    .load(user.getPhotoUrl())
+                    .crossFade()
+                    .into(nav_userImage);
+        }
+
+    }
+
     @Override
     public void onClick(int position) {
         String sourceId = newsSourcesList.get(position).getId();
@@ -206,7 +230,8 @@ public class SourcesActivity extends AppCompatActivity
                         @Override
                         public void onResult(@NonNull Status status) {
                             NewsApp.getAppInstance().setLoginStatus(false);
-                            invalidateOptionsMenu();
+                            startActivity(new Intent(SourcesActivity.this, SplashScreenActivity.class));
+                            finish();
                         }
                     });
 
