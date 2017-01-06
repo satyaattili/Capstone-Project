@@ -20,7 +20,6 @@
     <string name="notifications">Notifications</string>
     <string name="no_notifications_msg">No Notifications received yet</string>
     <string name="nav_rateus">Rate Us</string>
-    <string name="app_version">Version 1.0</string>
     <string name="credits_android_support_library">Android Support Library</string>
     <string name="credits_https_developer_android_com">https://developer.android.com/</string>
     <string name="credit_firebase">Firebase</string>
@@ -43,4 +42,6 @@
     <string name="about_us_http_mobileappdev_in">http://mobileappdev.in</string>
     <string name="aboutus_satya_mobileappdev_in">satya@mobileappdev.in</string>
     <string name="refresh">Refresh</string>
+    <string name="msg_playstore_app_not_found">" App not found in Play store"</string>
+    <string name="no_internet">No internet connection, \nCheck your WI-FI or Data connection</string>
 </resources>

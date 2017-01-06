@@ -7,14 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.mobileappdev.news.BuildConfig;
 import in.mobileappdev.news.R;
 
 public class AboutUsActivity extends AppCompatActivity {
 
+
     @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.versionName)
+    TextView versionName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +30,8 @@ public class AboutUsActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        versionName.setText(BuildConfig.VERSION_NAME);
     }
 
     @Override

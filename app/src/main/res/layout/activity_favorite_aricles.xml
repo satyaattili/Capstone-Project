@@ -30,12 +30,12 @@
             android:src="@drawable/web_hi_res" />
 
         <TextView
+            android:id="@+id/versionName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/logo"
             android:layout_centerHorizontal="true"
             android:padding="10dp"
-            android:text="@string/app_version"
             android:textSize="20sp"
             android:textStyle="bold" />
 
