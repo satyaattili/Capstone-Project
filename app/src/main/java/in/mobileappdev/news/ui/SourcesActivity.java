@@ -1,6 +1,8 @@
 package in.mobileappdev.news.ui;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -153,6 +156,8 @@ public class SourcesActivity extends AppCompatActivity
             intent = new Intent(this, CreditsActivity.class);
         } else if (id == R.id.nav_logout) {
             signOut();
+        } else if(id == R.id.nav_rateus){
+            rateUsonPlaystore();
         }
 
         if(intent != null){
@@ -269,5 +274,15 @@ public class SourcesActivity extends AppCompatActivity
     @Override
     public void hideError() {
         errorBuilder.hideErrorLayout();
+    }
+
+    private void rateUsonPlaystore() {
+        Uri uri = Uri.parse("market://details?id=" + getPackageName());
+        Intent myAppLinkToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        try {
+            startActivity(myAppLinkToMarket);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, R.string.msg_playstore_app_not_found, Toast.LENGTH_LONG).show();
+        }
     }
 }

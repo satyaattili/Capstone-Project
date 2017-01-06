@@ -30,10 +30,10 @@ public class Utils {
   }
 
   public static String getTimeString(String time){
-    if(null == time){
+    if(isEmpty(time)){
       return "";
     }
-    Log.d(TAG, "givenTime : "+time);
+
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-dd'T'HH:mm:ss'Z'",
         Locale.getDefault());
     Date convertedDate;
@@ -41,12 +41,10 @@ public class Utils {
       convertedDate = dateFormat.parse(time);
     } catch (ParseException e) {
       e.printStackTrace();
-      return time;
+      return "";
     }
     SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm a", Locale.getDefault());
-    String convertedString = df.format(convertedDate);
-    Log.d(TAG, "Converted Time : "+convertedString);
-    return convertedString;
+    return df.format(convertedDate);
   }
 
   public static boolean isEmpty(String str) {

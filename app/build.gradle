@@ -24,13 +24,13 @@ android {
         free {
             applicationId "in.mobileappdev.news.free"
             versionCode 1
-            versionName "1.0.0"
+            versionName "Version 1.0"
         }
 
         premium {
             applicationId "in.mobileappdev.news.premium"
             versionCode 1
-            versionName "1.0.0"
+            versionName "Version 1.0"
         }
     }
 }
@@ -62,8 +62,14 @@ dependencies {
     compile 'com.google.firebase:firebase-invites:10.0.1'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
-    testCompile 'junit:junit:4.12'
+
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
+
+    testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support:support-annotations:25.1.0'
+    testCompile 'org.robolectric:robolectric:3.0'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+
 
 }
 
