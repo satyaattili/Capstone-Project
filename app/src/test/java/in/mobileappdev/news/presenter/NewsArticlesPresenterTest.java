@@ -7,7 +7,9 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
+import in.mobileappdev.news.models.Article;
 import in.mobileappdev.news.models.Source;
+import in.mobileappdev.news.views.ArticleListView;
 import in.mobileappdev.news.views.SourceGridView;
 
 /**
@@ -16,17 +18,18 @@ import in.mobileappdev.news.views.SourceGridView;
  */
 
 @RunWith(MockitoJUnitRunner.class)
-public class NewsSourcePresenterTest {
+public class NewsArticlesPresenterTest {
 
     @Test
     public void testGetSources() {
 
-        NewsSourcesPresenter world = new NewsSourcesPresenter(gridView);
-        NewsSourcesPresenter spy = Mockito.spy(world);
+        NewsArticlesPresenter world = new NewsArticlesPresenter(articleListView, "cnn");
+        NewsArticlesPresenter spy = Mockito.spy(world);
         Mockito.doNothing().when(spy).start();
     }
 
-    private SourceGridView gridView = new SourceGridView() {
+
+    private ArticleListView articleListView = new ArticleListView() {
         @Override
         public void showLoading() {
 
@@ -38,7 +41,7 @@ public class NewsSourcePresenterTest {
         }
 
         @Override
-        public void showSources(List<Source> sources) {
+        public void showArticles(List<Article> articles) {
 
         }
 
