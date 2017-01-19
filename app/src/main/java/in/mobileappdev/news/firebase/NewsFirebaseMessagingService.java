@@ -2,6 +2,7 @@ package in.mobileappdev.news.firebase;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,9 +19,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import in.mobileappdev.news.R;
-import in.mobileappdev.news.db.DatabaseHandler;
+import in.mobileappdev.news.db.NewsContract;
 import in.mobileappdev.news.ui.NewsDetailWebActivity;
 import in.mobileappdev.news.utils.Constants;
 
@@ -48,9 +52,20 @@ public class NewsFirebaseMessagingService extends com.google.firebase.messaging.
         String img = remoteMessage.getData().get("image");
         String type = remoteMessage.getData().get("type");
 
+        ContentValues values = new ContentValues();
+        values.put(NewsContract.Columns.KEY_NOTIFICATION_MSG, title);
+        values.put(NewsContract.Columns.KEY_NOTIFICATION_IMG, img);
+        values.put(NewsContract.Columns.KEY_NOTIFICATION_URL, msg);
+
+        String desiredFormat = new SimpleDateFormat(
+                "yyyy-M-dd hh:mm:ss", Locale.ENGLISH).format(new Date());;
+
+        values.put(NewsContract.Columns.KEY_NOTIFICATION_TIME, desiredFormat);
+
         image = getBitmapFromURL(img);
-        DatabaseHandler dbHandler = new DatabaseHandler(this);
-        dbHandler.saveNotification(msg,title, img);
+
+        Uri uri = NewsContract.CONTENT_URI;
+        getApplicationContext().getContentResolver().insert(uri,values);
         sendNotification(type,title, msg, image);
     }
 

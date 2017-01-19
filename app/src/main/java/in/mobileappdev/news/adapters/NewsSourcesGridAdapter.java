@@ -5,6 +5,7 @@ package in.mobileappdev.news.adapters;
  */
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 
 import java.util.ArrayList;
 
@@ -44,13 +47,16 @@ public class NewsSourcesGridAdapter extends RecyclerView.Adapter<NewsSourcesGrid
   @Override
   public void onBindViewHolder(final NewsSourcesGridAdapter.ViewHolder viewHolder, int i) {
 
-    //glide
     Glide.with(context)
-        .load(newsSources.get(i).getUrlsToLogos().getSmall())
-        .placeholder(R.drawable.source_thumbnail_blue)
-        .crossFade()
-        .diskCacheStrategy(DiskCacheStrategy.RESULT)
-        .into(viewHolder.sourceImage);
+            .load(newsSources.get(i).getUrlsToLogos().getLarge())
+            .asBitmap()
+            .placeholder(R.drawable.source_thumbnail_blue)
+            .into(new SimpleTarget<Bitmap>() {
+              @Override
+              public void onResourceReady(Bitmap resource, GlideAnimation glideAnimation) {
+                viewHolder.sourceImage.setImageBitmap(resource); // Possibly runOnUiThread()
+              }
+            });
 
     viewHolder.parent.setOnClickListener(new View.OnClickListener() {
       @Override

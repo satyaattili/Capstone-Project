@@ -26,3 +26,9 @@
 -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
     <init>(java.lang.Throwable);
 }
+
+-keep class com.android.volley.error.** { *; }
+-keep class com.squareup.okhttp.internal.huc.** { *; }
+-keep class okio.** { *; }
+
+-dontwarn *.**

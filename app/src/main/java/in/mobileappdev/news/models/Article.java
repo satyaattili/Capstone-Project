@@ -98,6 +98,8 @@ public class Article implements Parcelable
     this.additionalProperties.put(name, value);
   }
 
+
+
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeValue(author);
     dest.writeValue(title);
@@ -110,6 +112,11 @@ public class Article implements Parcelable
 
   public int describeContents() {
     return 0;
+  }
+
+  @Override
+  public String toString() {
+    return "Title : "+title + "\n URL : " + url + "\n IMAGE URL : " + urlToImage;
   }
 
 }

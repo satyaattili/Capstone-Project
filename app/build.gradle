@@ -20,6 +20,26 @@ android {
         }
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+
+    signingConfigs {
+        release {
+            storeFile file("release.jks")
+            storePassword "udacity"
+            keyAlias "udacity"
+            keyPassword "udacity"
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
     productFlavors {
         free {
             applicationId "in.mobileappdev.news.free"
