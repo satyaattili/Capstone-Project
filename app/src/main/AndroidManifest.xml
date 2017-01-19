@@ -79,6 +79,10 @@
         <activity android:name=".ui.CreditsActivity"
             android:label="@string/nav_credits"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <provider
+            android:authorities="in.mobileappdev.news"
+            android:name=".db.NewsProvider" />
     </application>
 
 </manifest>

@@ -1,9 +1,13 @@
 package in.mobileappdev.news.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+
+import com.bumptech.glide.Glide;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,6 +53,15 @@ public class Utils {
 
   public static boolean isEmpty(String str) {
     return !(str != null && !str.trim().equals(Constants.EMPTY_STRING));
+  }
+
+  public Bitmap getBitmapFromUrl(Activity activity,String url) throws Exception{
+
+    return Glide.with(activity).
+            load("http://....").
+            asBitmap().
+            into(100, 100). // Width and height
+            get();
   }
 }
 
