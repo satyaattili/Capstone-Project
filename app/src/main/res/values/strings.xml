@@ -44,4 +44,9 @@
     <string name="refresh">Refresh</string>
     <string name="msg_playstore_app_not_found">" App not found in Play store"</string>
     <string name="no_internet">No internet connection, \nCheck your WI-FI or Data connection</string>
+    <string name="error_connrcting_servers">Problem with connecting our servers</string>
+    <string name="error_connection">No internet connection, \nCheck your WI-FI or Data connection</string>
+    <string name="errr_network">Network Problem \nPlease try again</string>
+    <string name="error_something_wrong">Something wrong happened \nPlease try again</string>
+    <string name="error_no_newspapers_found">"No News papers found "</string>
 </resources>

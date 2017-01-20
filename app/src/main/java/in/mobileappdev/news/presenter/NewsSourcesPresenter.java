@@ -1,8 +1,11 @@
 package in.mobileappdev.news.presenter;
 
 
+import android.content.Context;
+
 import java.io.IOException;
 
+import in.mobileappdev.news.R;
 import in.mobileappdev.news.api.APIClient;
 import in.mobileappdev.news.models.SourcesResponce;
 import in.mobileappdev.news.utils.Utils;
@@ -22,9 +25,15 @@ public class NewsSourcesPresenter {
     private String TAG = NewsSourcesPresenter.class.getSimpleName();
     private SourceGridView sourceGridView;
     private Subscription subscription;
+    private Context ctx;
 
     public NewsSourcesPresenter(SourceGridView sourceGridView) {
         this.sourceGridView = sourceGridView;
+    }
+
+    public NewsSourcesPresenter(Context ctx,SourceGridView sourceGridView) {
+        this.sourceGridView = sourceGridView;
+        this.ctx= ctx;
     }
 
     public void start() {
@@ -53,15 +62,15 @@ public class NewsSourcesPresenter {
                     public void onError(Throwable e) {
                         sourceGridView.hideLoading();
                         if (e instanceof HttpException) {
-                            sourceGridView.showError("Problem with connecting our servers", 0);
+                            sourceGridView.showError(ctx.getString(R.string.error_connrcting_servers), 0);
                         } else if (e instanceof IOException) {
                             if (!Utils.inNetworkConnected()) {
-                                sourceGridView.showError("No internet connection, \nCheck your WI-FI or Data connection", 1);
+                                sourceGridView.showError(ctx.getString(R.string.error_connection), 1);
                             } else {
-                                sourceGridView.showError("Network Problem", 1);
+                                sourceGridView.showError(ctx.getString(R.string.errr_network), 1);
                             }
                         } else {
-                            sourceGridView.showError("Something wrong happened \nPlease try again", 2);
+                            sourceGridView.showError(ctx.getString(R.string.error_something_wrong), 2);
                         }
                     }
 
@@ -72,7 +81,7 @@ public class NewsSourcesPresenter {
                         if (sources.getSources()!=null && sources.getSources().size() > 0) {
                             sourceGridView.showSources(sources.getSources());
                         } else {
-                            sourceGridView.showError("No News papers found "+sources.getStatus(), 4);
+                            sourceGridView.showError(ctx.getString(R.string.error_no_newspapers_found), 4);
                         }
                     }
                 });

@@ -55,13 +55,6 @@ public class Utils {
     return !(str != null && !str.trim().equals(Constants.EMPTY_STRING));
   }
 
-  public Bitmap getBitmapFromUrl(Activity activity,String url) throws Exception{
 
-    return Glide.with(activity).
-            load("http://....").
-            asBitmap().
-            into(100, 100). // Width and height
-            get();
-  }
 }
 
