@@ -28,5 +28,12 @@
  MVP Pattren :
  SourcesActivity and Articles Activity contains only UI related logic and business logic will be in their respective Presenters.
  
+ Notifications :
+ 
+ Test notifications using this console
+ http://mobileappdev.in/newsfcm/admin2.php
+ 
+ (Select ur email id and send notifications)
+ 
  
  
