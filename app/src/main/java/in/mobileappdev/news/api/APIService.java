@@ -28,7 +28,7 @@ public interface APIService {
   Observable<NewsArticlesListResponse> getNewsArticles(@Query(Constants.KEY_SOURCE) String source, @Query
                   (Constants.KEY_SORT_BY) String sortBy, @Query(Constants.KEY_API_KEY) String apiKey);
 
-  @POST("http://192.168.1.5/fcmserver/register.php")
+  @POST("http://mobileappdev.in/newsfcm/register.php")
   @FormUrlEncoded
   Observable<TokenResponse> saveToken(
           @Field(Constants.KEY_NAME) String name,

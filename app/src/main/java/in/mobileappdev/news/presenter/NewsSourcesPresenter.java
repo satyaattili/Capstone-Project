@@ -69,10 +69,10 @@ public class NewsSourcesPresenter {
                     public void onNext(SourcesResponce sources) {
                         sourceGridView.hideLoading();
                         sourceGridView.hideError();
-                        if (sources.getSources().size() > 0) {
+                        if (sources.getSources()!=null && sources.getSources().size() > 0) {
                             sourceGridView.showSources(sources.getSources());
                         } else {
-                            sourceGridView.showError("No News papers found", 4);
+                            sourceGridView.showError("No News papers found "+sources.getStatus(), 4);
                         }
                     }
                 });

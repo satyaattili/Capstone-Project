@@ -27,6 +27,27 @@
     <init>(java.lang.Throwable);
 }
 
+#-keepnames class in.mobileappdev.news.utils.GlideConfiguration
+# or more generally:
+-keep public class * implements com.bumptech.glide.module.GlideModule
+
 -keep class okio.** { *; }
 
 -dontwarn *.**
+
+-keep class rx.schedulers.Schedulers {
+    public static <methods>;
+}
+-keep class rx.schedulers.ImmediateScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.TestScheduler {
+    public <methods>;
+}
+-keep class rx.schedulers.Schedulers {
+    public static ** test();
+}
+
+-keep class rx.internal.util.unsafe.** { *; }
+
+-keep class in.mobileappdev.news.models.** { *; }
