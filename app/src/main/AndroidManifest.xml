@@ -83,6 +83,18 @@
         <provider
             android:authorities="in.mobileappdev.news"
             android:name=".db.NewsProvider" />
+
+        <receiver android:name=".widget.NewsWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/simple_widget_info" />
+        </receiver>
+        <service android:name=".widget.NewsWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>
