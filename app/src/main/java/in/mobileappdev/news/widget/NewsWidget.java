@@ -1,6 +1,7 @@
 package in.mobileappdev.news.widget;
 
 import android.annotation.TargetApi;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.widget.RemoteViews;
 
 import in.mobileappdev.news.R;
+import in.mobileappdev.news.ui.SourcesActivity;
 
 /**
  * Udacity
@@ -21,7 +23,10 @@ public class NewsWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_layout);
-//        views.setTextViewText(R.id.appwidget_text, widgetText);
+        Intent intent = new Intent(context, SourcesActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+
+        views.setOnClickPendingIntent(R.id.widget_layout_main, pendingIntent);
 
         // Set up the collection
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
