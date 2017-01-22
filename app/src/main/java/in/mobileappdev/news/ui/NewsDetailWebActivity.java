@@ -55,7 +55,7 @@ public class NewsDetailWebActivity extends AppCompatActivity
             webView.setWebViewClient(new CustomWebViewclient(this));
             webView.loadUrl(url);
         } else {
-            Toast.makeText(this, "Url not valid, Navigating to Home screen", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.invalid_url, Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, SplashScreenActivity.class));
             finish();
 

@@ -72,7 +72,7 @@ public class ArticlesActivity extends AppCompatActivity implements
         }
 
         if (sourceId == null) {
-            Toast.makeText(this, "Something Wrong happened, Please select again", Toast.LENGTH_LONG)
+            Toast.makeText(this, getResources().getString(R.string.error_something_wrong), Toast.LENGTH_LONG)
                     .show();
             finish();
             return;
