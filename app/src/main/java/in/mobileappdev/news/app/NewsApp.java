@@ -10,43 +10,43 @@ import android.content.SharedPreferences;
 
 public class NewsApp extends Application {
 
-  private static NewsApp appInstance;
-  private static SharedPreferences preferences;
+    private static NewsApp appInstance;
+    private static SharedPreferences preferences;
 
-  @Override
-  public void onCreate() {
-    super.onCreate();
-    appInstance = this;
-    preferences = getSharedPreferences("com.example.app", Context.MODE_PRIVATE);
-  }
+    public static NewsApp getAppInstance() {
+        return appInstance;
+    }
 
-  public static NewsApp getAppInstance(){
-    return appInstance;
-  }
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        appInstance = this;
+        preferences = getSharedPreferences("com.example.app", Context.MODE_PRIVATE);
+    }
 
-  public SharedPreferences getPreferences(){
-    return  preferences;
-  }
+    public SharedPreferences getPreferences() {
+        return preferences;
+    }
 
-  public SharedPreferences.Editor getEditor(){
-    return preferences.edit();
-  }
+    public SharedPreferences.Editor getEditor() {
+        return preferences.edit();
+    }
 
-  public void setLoginStatus(boolean isLoggedIn){
-    getEditor().putBoolean("loggedInStatus", isLoggedIn).apply();
-  }
+    public boolean getLoginStatus() {
+        return getPreferences().getBoolean("loggedInStatus", false);
+    }
 
-  public boolean getLoginStatus(){
-    return getPreferences().getBoolean("loggedInStatus", false);
-  }
+    public void setLoginStatus(boolean isLoggedIn) {
+        getEditor().putBoolean("loggedInStatus", isLoggedIn).apply();
+    }
 
-  public void setFirstLaunch(boolean isFirstLaunch){
-    getEditor().putBoolean("first-launch", isFirstLaunch).apply();
-  }
+    public boolean getFirstLaunch() {
+        return getPreferences().getBoolean("first-launch", true);
+    }
 
-  public boolean getFirstLaunch(){
-    return getPreferences().getBoolean("first-launch", true);
-  }
+    public void setFirstLaunch(boolean isFirstLaunch) {
+        getEditor().putBoolean("first-launch", isFirstLaunch).apply();
+    }
 
 
 }

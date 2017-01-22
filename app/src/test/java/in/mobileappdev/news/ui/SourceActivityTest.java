@@ -6,7 +6,6 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import static junit.framework.Assert.assertTrue;
-import static org.robolectric.Shadows.shadowOf;
 
 /**
  * Udacity

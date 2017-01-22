@@ -1,13 +1,8 @@
 package in.mobileappdev.news.utils;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
-
-import com.bumptech.glide.Glide;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,38 +17,38 @@ import in.mobileappdev.news.app.NewsApp;
 
 public class Utils {
 
-  private static String TAG = "Utils";
+    private static String TAG = "Utils";
 
-  public static boolean inNetworkConnected() {
-    ConnectivityManager
-        cm = (ConnectivityManager) NewsApp.getAppInstance().getApplicationContext()
-        .getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-    return activeNetwork != null
-        && activeNetwork.isConnectedOrConnecting();
-  }
-
-  public static String getTimeString(String time){
-    if(isEmpty(time)){
-      return "";
+    public static boolean inNetworkConnected() {
+        ConnectivityManager
+                cm = (ConnectivityManager) NewsApp.getAppInstance().getApplicationContext()
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null
+                && activeNetwork.isConnectedOrConnecting();
     }
 
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-dd'T'HH:mm:ss'Z'",
-        Locale.getDefault());
-    Date convertedDate;
-    try {
-      convertedDate = dateFormat.parse(time);
-    } catch (ParseException e) {
-      e.printStackTrace();
-      return "";
-    }
-    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm a", Locale.getDefault());
-    return df.format(convertedDate);
-  }
+    public static String getTimeString(String time) {
+        if (isEmpty(time)) {
+            return "";
+        }
 
-  public static boolean isEmpty(String str) {
-    return !(str != null && !str.trim().equals(Constants.EMPTY_STRING));
-  }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-dd'T'HH:mm:ss'Z'",
+                Locale.getDefault());
+        Date convertedDate;
+        try {
+            convertedDate = dateFormat.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
+        }
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy hh:mm a", Locale.getDefault());
+        return df.format(convertedDate);
+    }
+
+    public static boolean isEmpty(String str) {
+        return !(str != null && !str.trim().equals(Constants.EMPTY_STRING));
+    }
 
 
 }

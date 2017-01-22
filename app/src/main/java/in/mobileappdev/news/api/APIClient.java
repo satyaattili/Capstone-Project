@@ -29,113 +29,100 @@ import rx.Observable;
 
 public class APIClient {
 
-  private static final String BASE_URL = "https://newsapi.org/v1/";
-  private static final String CACHE_CONTROL = "Cache-Control";
+    private static final String BASE_URL = "https://newsapi.org/v1/";
+    private static final String CACHE_CONTROL = "Cache-Control";
 
 
-  private static APIClient instance;
-  private APIService apiService;
+    private static APIClient instance;
+    private APIService apiService;
 
-  private APIClient() {
+    private APIClient() {
 
-    final Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
-        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-        .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
-      //  .client(provideOkHttpClient())
-        .build();
-    apiService = retrofit.create(APIService.class);
-  }
-
-  public static APIClient getInstance() {
-    if (instance == null) {
-      instance = new APIClient();
+        final Retrofit retrofit = new Retrofit.Builder().baseUrl(BASE_URL)
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
+                //  .client(provideOkHttpClient())
+                .build();
+        apiService = retrofit.create(APIService.class);
     }
-    return instance;
-  }
 
-  public Observable<SourcesResponce> getNewsSources(@NonNull String language, @NonNull String
-      country) {
-    return apiService.getNewsSources(language,country);
-  }
-
-  public Observable<NewsArticlesListResponse> getArticles(@NonNull String sourceId, String
-      sortBy, String apiKey) {
-    return apiService.getNewsArticles(sourceId, sortBy, apiKey);
-  }
-
-  public Observable<TokenResponse> saveToken(String name, String email, String token) {
-    return apiService.saveToken(name, email, token);
-  }
-
-
-  private static OkHttpClient provideOkHttpClient ()
-  {
-    return new OkHttpClient.Builder()
-        .addInterceptor( provideOfflineCacheInterceptor() )
-        .addNetworkInterceptor( provideCacheInterceptor() )
-        .cache( provideCache() )
-        .build();
-  }
-
-  private static Cache provideCache ()
-  {
-    Cache cache = null;
-    try
-    {
-      cache = new Cache( new File( NewsApp.getAppInstance().getCacheDir(), "http-cache" ),
-          10 * 1024 * 1024 ); // 10 MB
-    }
-    catch (Exception e)
-    {
-      //Log.e( TAG, "Could not create Cache!" );
-    }
-    return cache;
-  }
-
-  public static Interceptor provideCacheInterceptor ()
-  {
-    return new Interceptor()
-    {
-      @Override
-      public Response intercept (Chain chain) throws IOException
-      {
-        Response response = chain.proceed( chain.request() );
-
-        // re-write response header to force use of cache
-        CacheControl cacheControl = new CacheControl.Builder()
-            .maxAge( 2, TimeUnit.MINUTES )
-            .build();
-
-        return response.newBuilder()
-            .header( CACHE_CONTROL, cacheControl.toString() )
-            .build();
-      }
-    };
-  }
-
-  public static Interceptor provideOfflineCacheInterceptor ()
-  {
-    return new Interceptor()
-    {
-      @Override
-      public Response intercept (Chain chain) throws IOException
-      {
-        Request request = chain.request();
-
-        if ( !Utils.inNetworkConnected() )
-        {
-          CacheControl cacheControl = new CacheControl.Builder()
-              .maxStale( 7, TimeUnit.DAYS )
-              .build();
-
-          request = request.newBuilder()
-              .cacheControl( cacheControl )
-              .build();
+    public static APIClient getInstance() {
+        if (instance == null) {
+            instance = new APIClient();
         }
+        return instance;
+    }
 
-        return chain.proceed( request );
-      }
-    };
-  }
+    private static OkHttpClient provideOkHttpClient() {
+        return new OkHttpClient.Builder()
+                .addInterceptor(provideOfflineCacheInterceptor())
+                .addNetworkInterceptor(provideCacheInterceptor())
+                .cache(provideCache())
+                .build();
+    }
+
+    private static Cache provideCache() {
+        Cache cache = null;
+        try {
+            cache = new Cache(new File(NewsApp.getAppInstance().getCacheDir(), "http-cache"),
+                    10 * 1024 * 1024); // 10 MB
+        } catch (Exception e) {
+            //Log.e( TAG, "Could not create Cache!" );
+        }
+        return cache;
+    }
+
+    public static Interceptor provideCacheInterceptor() {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Response response = chain.proceed(chain.request());
+
+                // re-write response header to force use of cache
+                CacheControl cacheControl = new CacheControl.Builder()
+                        .maxAge(2, TimeUnit.MINUTES)
+                        .build();
+
+                return response.newBuilder()
+                        .header(CACHE_CONTROL, cacheControl.toString())
+                        .build();
+            }
+        };
+    }
+
+    public static Interceptor provideOfflineCacheInterceptor() {
+        return new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request request = chain.request();
+
+                if (!Utils.inNetworkConnected()) {
+                    CacheControl cacheControl = new CacheControl.Builder()
+                            .maxStale(7, TimeUnit.DAYS)
+                            .build();
+
+                    request = request.newBuilder()
+                            .cacheControl(cacheControl)
+                            .build();
+                }
+
+                return chain.proceed(request);
+            }
+        };
+    }
+
+    public Observable<SourcesResponce> getNewsSources(@NonNull String language, @NonNull String
+            country) {
+        return apiService.getNewsSources(language, country);
+    }
+
+    public Observable<NewsArticlesListResponse> getArticles(@NonNull String sourceId, String
+            sortBy, String apiKey) {
+        return apiService.getNewsArticles(sourceId, sortBy, apiKey);
+    }
+
+    public Observable<TokenResponse> saveToken(String name, String email, String token) {
+        return apiService.saveToken(name, email, token);
+    }
 }

@@ -26,7 +26,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.mobileappdev.news.R;
 import in.mobileappdev.news.bus.ArticleEvent;
-import in.mobileappdev.news.bus.ArticleListEvent;
 import in.mobileappdev.news.firebase.AppIndexingHelper;
 import in.mobileappdev.news.models.Article;
 import in.mobileappdev.news.utils.Constants;
@@ -37,7 +36,7 @@ import in.mobileappdev.news.utils.Constants;
  */
 public class NewsDetailActivityFragment extends Fragment {
 
-    private String TAG = "NewsDetailActivityFragment";
+    private static String KEY_ARTICLE = "article";
     @BindView(R.id.imageView)
     ImageView newsImage;
 
@@ -52,10 +51,8 @@ public class NewsDetailActivityFragment extends Fragment {
 
     @BindView(R.id.ad_view)
     AdView bannerAdView;
-
+    private String TAG = "NewsDetailActivityFragment";
     private String newsUrl;
-
-    private static String KEY_ARTICLE = "article";
     private Article article;
 
     public NewsDetailActivityFragment() {

@@ -8,13 +8,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import java.io.IOException;
-
 import in.mobileappdev.news.api.APIClient;
-import in.mobileappdev.news.models.NewsArticlesListResponse;
 import in.mobileappdev.news.models.TokenResponse;
-import in.mobileappdev.news.utils.Constants;
-import retrofit2.adapter.rxjava.HttpException;
 import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -39,9 +34,9 @@ public class FBInstanceIDService extends FirebaseInstanceIdService {
     }
 
     private void saveToken(@NonNull String token) {
-        Log.d(TAG, "TOKEN : "+token);
+        Log.d(TAG, "TOKEN : " + token);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user != null){
+        if (user != null) {
             user.getEmail();
             subscription = APIClient.getInstance()
                     .saveToken(user.getDisplayName(), user.getEmail(), token)

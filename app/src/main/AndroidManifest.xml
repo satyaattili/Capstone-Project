@@ -76,13 +76,14 @@
             android:name=".ui.NotificationsActivity"
             android:label="@string/notifications"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.CreditsActivity"
+        <activity
+            android:name=".ui.CreditsActivity"
             android:label="@string/nav_credits"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <provider
-            android:authorities="in.mobileappdev.news"
-            android:name=".db.NewsProvider" />
+            android:name=".db.NewsProvider"
+            android:authorities="in.mobileappdev.news" />
 
         <receiver android:name=".widget.NewsWidget">
             <intent-filter>
@@ -93,7 +94,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/simple_widget_info" />
         </receiver>
-        <service android:name=".widget.NewsWidgetService"
+        <service
+            android:name=".widget.NewsWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 

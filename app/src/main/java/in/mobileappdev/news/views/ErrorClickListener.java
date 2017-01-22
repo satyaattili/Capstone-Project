@@ -8,5 +8,5 @@ import android.view.View;
 
 public interface ErrorClickListener {
 
-  void onRetryClicked(View view);
+    void onRetryClicked(View view);
 }

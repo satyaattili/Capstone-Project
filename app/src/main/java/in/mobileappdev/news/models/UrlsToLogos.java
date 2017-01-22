@@ -1,4 +1,3 @@
-
 package in.mobileappdev.news.models;
 
 public class UrlsToLogos {
@@ -8,54 +7,42 @@ public class UrlsToLogos {
     private String large;
 
     /**
-     * 
-     * @return
-     *     The small
+     * @return The small
      */
     public String getSmall() {
         return small;
     }
 
     /**
-     * 
-     * @param small
-     *     The small
+     * @param small The small
      */
     public void setSmall(String small) {
         this.small = small;
     }
 
     /**
-     * 
-     * @return
-     *     The medium
+     * @return The medium
      */
     public String getMedium() {
         return medium;
     }
 
     /**
-     * 
-     * @param medium
-     *     The medium
+     * @param medium The medium
      */
     public void setMedium(String medium) {
         this.medium = medium;
     }
 
     /**
-     * 
-     * @return
-     *     The large
+     * @return The large
      */
     public String getLarge() {
         return large;
     }
 
     /**
-     * 
-     * @param large
-     *     The large
+     * @param large The large
      */
     public void setLarge(String large) {
         this.large = large;

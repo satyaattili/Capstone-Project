@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.io.IOException;
@@ -36,6 +35,21 @@ public class NewsFirebaseMessagingService extends com.google.firebase.messaging.
 
     Bitmap image;
 
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // TODO(developer): Handle FCM messages here.
@@ -58,23 +72,24 @@ public class NewsFirebaseMessagingService extends com.google.firebase.messaging.
         values.put(NewsContract.Columns.KEY_NOTIFICATION_URL, msg);
 
         String desiredFormat = new SimpleDateFormat(
-                "yyyy-M-dd hh:mm:ss", Locale.ENGLISH).format(new Date());;
+                "yyyy-M-dd hh:mm:ss", Locale.ENGLISH).format(new Date());
+        ;
 
         values.put(NewsContract.Columns.KEY_NOTIFICATION_TIME, desiredFormat);
 
         image = getBitmapFromURL(img);
 
         Uri uri = NewsContract.CONTENT_URI;
-        getApplicationContext().getContentResolver().insert(uri,values);
-        sendNotification(type,title, msg, image);
+        getApplicationContext().getContentResolver().insert(uri, values);
+        sendNotification(type, title, msg, image);
     }
 
-    private void sendNotification(String type, String title,String messageBody, Bitmap img) {
+    private void sendNotification(String type, String title, String messageBody, Bitmap img) {
         Intent intent = new Intent(this, NewsDetailWebActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         intent.putExtra(Constants.DEEPLINK, messageBody);
         intent.setAction(Intent.ACTION_VIEW);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , intent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -103,20 +118,5 @@ public class NewsFirebaseMessagingService extends com.google.firebase.messaging.
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0, notificationBuilder.build());
-    }
-
-    public static Bitmap getBitmapFromURL(String src) {
-        try {
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 }

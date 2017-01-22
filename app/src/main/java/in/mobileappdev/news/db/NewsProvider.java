@@ -18,12 +18,13 @@ import android.support.annotation.NonNull;
 
 public class NewsProvider extends ContentProvider {
 
-    private SQLiteDatabase db;
     public static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
         uriMatcher.addURI(NewsContract.AUTHORITY, NewsContract.TABLE, NewsContract.ALL_NOTIFICATIONS);
     }
+
+    private SQLiteDatabase db;
 
     @Override
     public boolean onCreate() {

@@ -8,9 +8,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.List;
 
 import in.mobileappdev.news.models.Article;
-import in.mobileappdev.news.models.Source;
 import in.mobileappdev.news.views.ArticleListView;
-import in.mobileappdev.news.views.SourceGridView;
 
 /**
  * Udacity
@@ -19,15 +17,6 @@ import in.mobileappdev.news.views.SourceGridView;
 
 @RunWith(MockitoJUnitRunner.class)
 public class NewsArticlesPresenterTest {
-
-    @Test
-    public void testGetSources() {
-
-        NewsArticlesPresenter world = new NewsArticlesPresenter(articleListView, "cnn");
-        NewsArticlesPresenter spy = Mockito.spy(world);
-        Mockito.doNothing().when(spy).start();
-    }
-
 
     private ArticleListView articleListView = new ArticleListView() {
         @Override
@@ -55,4 +44,12 @@ public class NewsArticlesPresenterTest {
 
         }
     };
+
+    @Test
+    public void testGetSources() {
+
+        NewsArticlesPresenter world = new NewsArticlesPresenter(articleListView, "cnn");
+        NewsArticlesPresenter spy = Mockito.spy(world);
+        Mockito.doNothing().when(spy).start();
+    }
 }

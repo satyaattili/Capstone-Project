@@ -5,27 +5,23 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.ConnectionResult;
@@ -56,9 +52,6 @@ public class SourcesActivity extends AppCompatActivity
         SourceGridView {
 
     private static final String TAG = "MainActivity";
-    private NewsSourcesGridAdapter newsSourcesGridAdapter;
-    private ArrayList<Source> newsSourcesList = new ArrayList<>();
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.sources_recycler)
@@ -67,15 +60,13 @@ public class SourcesActivity extends AppCompatActivity
     ProgressBar loadingProgress;
     @BindView(R.id.error_layout)
     LinearLayout errorLayout;
-
     @BindView(R.id.nav_view)
     NavigationView navigationView;
-    private ActionBarDrawerToggle toggle;
-
-
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
-
+    private NewsSourcesGridAdapter newsSourcesGridAdapter;
+    private ArrayList<Source> newsSourcesList = new ArrayList<>();
+    private ActionBarDrawerToggle toggle;
     private FirebaseAuth mAuth;
 
     private GoogleApiClient mGoogleApiClient;
@@ -147,7 +138,8 @@ public class SourcesActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        Intent intent = null;;
+        Intent intent = null;
+        ;
         if (id == R.id.nav_notifications) {
             intent = new Intent(this, NotificationsActivity.class);
         } else if (id == R.id.nav_about) {
@@ -156,11 +148,11 @@ public class SourcesActivity extends AppCompatActivity
             intent = new Intent(this, CreditsActivity.class);
         } else if (id == R.id.nav_logout) {
             signOut();
-        } else if(id == R.id.nav_rateus){
+        } else if (id == R.id.nav_rateus) {
             rateUsonPlaystore();
         }
 
-        if(intent != null){
+        if (intent != null) {
             startActivity(intent);
         }
 

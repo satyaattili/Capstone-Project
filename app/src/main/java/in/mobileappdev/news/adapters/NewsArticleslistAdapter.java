@@ -74,6 +74,10 @@ public class NewsArticleslistAdapter extends RecyclerView.Adapter<NewsArticlesli
         this.onClickListener = onClickListener;
     }
 
+    public interface OnClickListener {
+        void onClick(View v, int position);
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.news_title)
         TextView newsTitle;
@@ -89,10 +93,6 @@ public class NewsArticleslistAdapter extends RecyclerView.Adapter<NewsArticlesli
             ButterKnife.bind(this, view);
         }
 
-    }
-
-    public interface OnClickListener {
-        void onClick(View v, int position);
     }
 }
 

@@ -31,9 +31,9 @@ public class NewsSourcesPresenter {
         this.sourceGridView = sourceGridView;
     }
 
-    public NewsSourcesPresenter(Context ctx,SourceGridView sourceGridView) {
+    public NewsSourcesPresenter(Context ctx, SourceGridView sourceGridView) {
         this.sourceGridView = sourceGridView;
-        this.ctx= ctx;
+        this.ctx = ctx;
     }
 
     public void start() {
@@ -78,7 +78,7 @@ public class NewsSourcesPresenter {
                     public void onNext(SourcesResponce sources) {
                         sourceGridView.hideLoading();
                         sourceGridView.hideError();
-                        if (sources.getSources()!=null && sources.getSources().size() > 0) {
+                        if (sources.getSources() != null && sources.getSources().size() > 0) {
                             sourceGridView.showSources(sources.getSources());
                         } else {
                             sourceGridView.showError(ctx.getString(R.string.error_no_newspapers_found), 4);

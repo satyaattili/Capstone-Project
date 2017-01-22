@@ -1,6 +1,5 @@
 package in.mobileappdev.news.widget;
 
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -10,12 +9,9 @@ import android.widget.RemoteViewsService;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.mobileappdev.news.R;
 import in.mobileappdev.news.api.APIClient;
 import in.mobileappdev.news.models.Article;
 import in.mobileappdev.news.models.NewsArticlesListResponse;
-import in.mobileappdev.news.models.Source;
-import in.mobileappdev.news.ui.SourcesActivity;
 import in.mobileappdev.news.utils.Constants;
 import rx.Observer;
 import rx.Subscription;

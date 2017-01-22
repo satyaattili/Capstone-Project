@@ -17,6 +17,7 @@ public class NewsDetailViewPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         this.fragments = fragments;
     }
+
     @Override
     public Fragment getItem(int position) {
         return this.fragments.get(position);

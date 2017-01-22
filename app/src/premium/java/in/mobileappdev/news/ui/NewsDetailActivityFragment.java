@@ -32,7 +32,10 @@ import in.mobileappdev.news.utils.Constants;
  */
 public class NewsDetailActivityFragment extends Fragment {
 
+    private static String KEY_ARTICLE = "article";
     private String TAG = "NewsDetailActivityFragment";
+    private String newsUrl;
+
     @BindView(R.id.imageView)
     ImageView newsImage;
 
@@ -45,9 +48,6 @@ public class NewsDetailActivityFragment extends Fragment {
     @BindView(R.id.articleDesc)
     TextView articleDescription;
 
-    private String newsUrl;
-
-    private static String KEY_ARTICLE = "article";
 
     public NewsDetailActivityFragment() {
     }

@@ -10,17 +10,17 @@ import in.mobileappdev.news.models.Article;
 
 public class ArticleListEvent {
 
-  private List<Article> articles;
+    private List<Article> articles;
 
-  public ArticleListEvent(List<Article>  articles) {
-    this.articles = articles;
-  }
+    public ArticleListEvent(List<Article> articles) {
+        this.articles = articles;
+    }
 
-  public List<Article> getArticleList() {
-    return articles;
-  }
+    public List<Article> getArticleList() {
+        return articles;
+    }
 
-  public void setArticle(List<Article>  article) {
-    this.articles = articles;
-  }
+    public void setArticle(List<Article> article) {
+        this.articles = articles;
+    }
 }

@@ -2,12 +2,11 @@ package in.mobileappdev.news.ui;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,24 +28,21 @@ import in.mobileappdev.news.models.Article;
 import in.mobileappdev.news.utils.Constants;
 import in.mobileappdev.news.utils.Utils;
 
-public class NotificationsActivity extends AppCompatActivity implements NewsArticleslistAdapter.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>{
+public class NotificationsActivity extends AppCompatActivity implements NewsArticleslistAdapter.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final int LOADER_ID = 987;
     private final String TAG = NotificationsActivity.class.getSimpleName();
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
     @BindView(R.id.notificationsList)
     RecyclerView notificationListView;
-
     @BindView(R.id.error_layout)
     TextView errorText;
-
     @BindView(R.id.notification_loading)
     ProgressBar progressBar;
-
     private NewsArticleslistAdapter newsArticlesAdapter;
     private ArrayList<Article> notifications;
-    private static final int LOADER_ID = 987;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,13 +101,13 @@ public class NotificationsActivity extends AppCompatActivity implements NewsArti
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         progressBar.setVisibility(View.GONE);
-        if(cursor != null){
+        if (cursor != null) {
             notifications.clear();
             // looping through all rows and adding to list
             if (cursor.moveToFirst()) {
                 do {
                     //author,tile, des, url, urlImage, time
-                    if(!Utils.isEmpty(cursor.getString(2))){
+                    if (!Utils.isEmpty(cursor.getString(2))) {
                         Article article = new Article();
                         article.setTitle(cursor.getString(2));
                         article.setDescription(cursor.getString(2));
@@ -127,7 +123,7 @@ public class NotificationsActivity extends AppCompatActivity implements NewsArti
             cursor.close();
         }
 
-        if(notifications.size() == 0){
+        if (notifications.size() == 0) {
             notificationListView.setVisibility(View.GONE);
             errorText.setVisibility(View.VISIBLE);
             errorText.setText(R.string.no_notifications_msg);

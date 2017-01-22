@@ -10,14 +10,14 @@ import in.mobileappdev.news.models.Article;
 
 public interface ArticleListView {
 
-  public void showLoading();
+    public void showLoading();
 
-  public void hideLoading();
+    public void hideLoading();
 
-  public void showArticles(List<Article> articles);
+    public void showArticles(List<Article> articles);
 
-  public void showError(String message, int type);
+    public void showError(String message, int type);
 
-  public void hideError();
+    public void hideError();
 
 }

@@ -18,14 +18,6 @@ import in.mobileappdev.news.views.SourceGridView;
 @RunWith(MockitoJUnitRunner.class)
 public class NewsSourcePresenterTest {
 
-    @Test
-    public void testGetSources() {
-
-        NewsSourcesPresenter world = new NewsSourcesPresenter(gridView);
-        NewsSourcesPresenter spy = Mockito.spy(world);
-        Mockito.doNothing().when(spy).start();
-    }
-
     private SourceGridView gridView = new SourceGridView() {
         @Override
         public void showLoading() {
@@ -52,4 +44,12 @@ public class NewsSourcePresenterTest {
 
         }
     };
+
+    @Test
+    public void testGetSources() {
+
+        NewsSourcesPresenter world = new NewsSourcesPresenter(gridView);
+        NewsSourcesPresenter spy = Mockito.spy(world);
+        Mockito.doNothing().when(spy).start();
+    }
 }

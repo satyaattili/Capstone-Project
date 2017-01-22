@@ -11,13 +11,13 @@ import rx.subjects.Subject;
 
 public class RxEventBus {
 
-  private final Subject<Object, Object> bus = new SerializedSubject<>(PublishSubject.create());
+    private final Subject<Object, Object> bus = new SerializedSubject<>(PublishSubject.create());
 
-  public void post(Object o) {
-    bus.onNext(o);
-  }
+    public void post(Object o) {
+        bus.onNext(o);
+    }
 
-  public Observable<Object> getBusObservable() {
-    return bus;
-  }
+    public Observable<Object> getBusObservable() {
+        return bus;
+    }
 }

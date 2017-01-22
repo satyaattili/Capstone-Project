@@ -2,7 +2,6 @@ package in.mobileappdev.news.views;
 
 import java.util.List;
 
-import in.mobileappdev.news.models.Article;
 import in.mobileappdev.news.models.Source;
 
 /**
@@ -11,14 +10,14 @@ import in.mobileappdev.news.models.Source;
 
 public interface SourceGridView {
 
-  public void showLoading();
+    public void showLoading();
 
-  public void hideLoading();
+    public void hideLoading();
 
-  public void showSources(List<Source> sources);
+    public void showSources(List<Source> sources);
 
-  public void showError(String message, int type);
+    public void showError(String message, int type);
 
-  public void hideError();
+    public void hideError();
 
 }

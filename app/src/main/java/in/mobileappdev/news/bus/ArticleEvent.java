@@ -8,17 +8,17 @@ import in.mobileappdev.news.models.Article;
 
 public class ArticleEvent {
 
-  private Article article;
+    private Article article;
 
-  public ArticleEvent(Article article) {
-    this.article = article;
-  }
+    public ArticleEvent(Article article) {
+        this.article = article;
+    }
 
-  public Article getArticle() {
-    return article;
-  }
+    public Article getArticle() {
+        return article;
+    }
 
-  public void setArticle(Article article) {
-    this.article = article;
-  }
+    public void setArticle(Article article) {
+        this.article = article;
+    }
 }

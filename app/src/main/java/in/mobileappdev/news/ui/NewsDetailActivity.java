@@ -27,14 +27,13 @@ import in.mobileappdev.news.models.Article;
 
 public class NewsDetailActivity extends AppCompatActivity {
 
-    //@BindView(R.id.toolbar) Toolbar toolbar;
-    private String TAG = NewsDetailActivity.class.getSimpleName();
-
     @BindView(R.id.news_detail_pager)
     ViewPager newsDdetailViewPager;
+    FragmentManager fm = getSupportFragmentManager();
+    //@BindView(R.id.toolbar) Toolbar toolbar;
+    private String TAG = NewsDetailActivity.class.getSimpleName();
     private NewsDetailViewPagerAdapter adapter;
     private int articlePosition = 0;
-    FragmentManager fm = getSupportFragmentManager();
     private List<Fragment> fragmentList = new ArrayList<>();
 
     public static void launch(Activity activity, int position) {
@@ -54,10 +53,10 @@ public class NewsDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news_detail);
         ButterKnife.bind(this);
         onNewIntent(getIntent());
-        if(NewsApp.getAppInstance().getFirstLaunch()){
+        if (NewsApp.getAppInstance().getFirstLaunch()) {
             NewsApp.getAppInstance().setFirstLaunch(false);
             NewsDetailHelperFragment helperFragment = new NewsDetailHelperFragment();
-            helperFragment.show(fm,"helper");
+            helperFragment.show(fm, "helper");
         }
     }
 

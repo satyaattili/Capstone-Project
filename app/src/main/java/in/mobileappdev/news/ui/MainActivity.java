@@ -41,9 +41,6 @@ public class MainActivity extends AppCompatActivity implements
         SourceGridView {
 
     private static final String TAG = "MainActivity";
-    private NewsSourcesGridAdapter newsSourcesGridAdapter;
-    private ArrayList<Source> newsSourcesList = new ArrayList<>();
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.sources_recycler)
@@ -52,7 +49,8 @@ public class MainActivity extends AppCompatActivity implements
     ProgressBar loadingProgress;
     @BindView(R.id.error_layout)
     LinearLayout errorLayout;
-
+    private NewsSourcesGridAdapter newsSourcesGridAdapter;
+    private ArrayList<Source> newsSourcesList = new ArrayList<>();
     private FirebaseAuth mAuth;
 
     private GoogleApiClient mGoogleApiClient;
