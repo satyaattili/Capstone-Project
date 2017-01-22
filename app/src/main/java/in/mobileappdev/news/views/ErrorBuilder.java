@@ -46,6 +46,7 @@ public class ErrorBuilder {
             TextView mBtnErrorClick = (TextView) errorMessageView.findViewById(R.id.btn_error_click);
 
             mErrorMessage.setText(error);
+            mErrorImage.setContentDescription(error);
 
             if (action) {
                 mBtnErrorClick.setVisibility(View.VISIBLE);

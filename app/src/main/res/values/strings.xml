@@ -49,4 +49,10 @@
     <string name="errr_network">Network Problem \nPlease try again</string>
     <string name="error_something_wrong">Something wrong happened \nPlease try again</string>
     <string name="error_no_newspapers_found">"No News papers found "</string>
+    <string name="welcome_to_news_app">Welcome to News App</string>
+    <string name="widget">Widget</string>
+    <string name="news_app_logo">News App Logo</string>
+    <string name="news_detail_image">News Detail Image</string>
+    <string name="read_more">Read More</string>
+    <string name="news_widget">News Widget</string>
 </resources>

@@ -54,7 +54,7 @@ public class NewsSourcesGridAdapter extends RecyclerView.Adapter<NewsSourcesGrid
                         viewHolder.sourceImage.setImageBitmap(resource); // Possibly runOnUiThread()
                     }
                 });
-
+        viewHolder.sourceImage.setContentDescription(newsSources.get(i).getName());
         viewHolder.parent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

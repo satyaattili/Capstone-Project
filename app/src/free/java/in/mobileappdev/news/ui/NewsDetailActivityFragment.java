@@ -100,7 +100,6 @@ public class NewsDetailActivityFragment extends Fragment {
             Intent sendIntent = new Intent();
             String msg = Constants.DYNAMIC_LINK_DOMAIN + "?link=" + Constants
                     .BASE_SHARE_URL + newsUrl + "&apn=" + Constants.PACKAGE_NAME;
-            Log.d(TAG, "Shared URL : " + msg);
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT, msg);
             sendIntent.setType("text/plain");
@@ -117,7 +116,7 @@ public class NewsDetailActivityFragment extends Fragment {
                 .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(newsImage);
-
+        newsImage.setContentDescription(article.getTitle());
         articleTitle.setText(article.getTitle());
         articleAuthor.setText(article.getAuthor());
         articleDescription.setText(article.getDescription());

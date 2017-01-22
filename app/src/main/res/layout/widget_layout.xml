@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#bbDEDFDE"
+        android:background="@color/md_grey_200"
         android:orientation="vertical">
 
         <LinearLayout
@@ -22,6 +22,7 @@
                 android:id="@+id/widget_img_launcher"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:contentDescription="@string/widget"
                 android:layout_gravity="center_vertical"
                 android:src="@mipmap/ic_launcher" />
 
@@ -30,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:padding="10dp"
-                android:text="News Widget"
+                android:text="@string/news_widget"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
@@ -39,7 +40,7 @@
         <ListView
             android:id="@+id/widget_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></ListView>
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </FrameLayout>

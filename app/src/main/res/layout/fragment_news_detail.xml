@@ -57,8 +57,8 @@
                 android:layout_above="@id/textLayout"
                 android:layout_alignParentTop="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/detail_image_placeholder"
-                android:transitionName="image" />
+                android:contentDescription="@string/news_detail_image"
+                android:src="@drawable/detail_image_placeholder" />
 
 
         </RelativeLayout>
@@ -90,7 +90,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/btn_rounded_corner_bg"
                 android:padding="5dp"
-                android:text="Read More"
+                android:text="@string/read_more"
                 android:textColor="@color/colorPrimary" />
 
             <android.support.v4.widget.NestedScrollView

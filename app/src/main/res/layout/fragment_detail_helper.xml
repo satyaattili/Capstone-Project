@@ -5,17 +5,18 @@
     android:background="@android:color/transparent">
 
     <ImageView
-        android:id="@+id/swipeIcon"
+        android:id="@+id/swipeHelperImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:contentDescription="@string/swipe_left_right_to_read_previous_next_articles"
         android:src="@drawable/swipe_helper" />
 
     <TextView
         android:id="@+id/txtMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/swipeIcon"
+        android:layout_above="@id/swipeHelperImage"
         android:gravity="center"
         android:padding="20dp"
         android:text="@string/swipe_left_right_to_read_previous_next_articles"
@@ -27,7 +28,7 @@
         android:id="@+id/btnGotIt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/swipeIcon"
+        android:layout_below="@id/swipeHelperImage"
         android:layout_centerHorizontal="true"
         android:layout_margin="30dp"
         android:background="@drawable/btn_rounded_corner_bg"

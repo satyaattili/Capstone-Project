@@ -52,7 +52,7 @@ public class NewsArticleslistAdapter extends RecyclerView.Adapter<NewsArticlesli
                 .crossFade()
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(viewHolder.thumbnail);
-
+        viewHolder.thumbnail.setContentDescription(article.getTitle());
         viewHolder.publishedAt.setText(Utils.getTimeString(article.getPublishedAt()));
 
         viewHolder.parent.setOnClickListener(new View.OnClickListener() {
